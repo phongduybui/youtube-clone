@@ -25,10 +25,13 @@ const SideBar = ({ isBarsClick }) => {
     if(ref.current && width < 739) {
       ref.current.classList.add('side-bar--tablet');
     }
+    if(ref.current && width >= 1024) {
+      ref.current.classList.remove('side-bar--tablet');
+    }
   }, [width])
 
   return (
-    <ul ref={ref} className={`side-bar ${width < 1023 ? 'side-bar--tablet' : ''}`}>
+    <ul ref={ref} className={`side-bar side-bar--tablet ${width < 1023 ? 'side-bar--tablet' : ''}`}>
       <SideBarItem
         onTablet
         isActive

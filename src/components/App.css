@@ -12,7 +12,10 @@
   --search-box-height: 29px;
   --header-height: 56px;
   --margin-lr-container: 28px;
+  --side-bar-width: 240px;
+  --side-bar-tablet-width: 75px;
   --background-color: #fff;
+  --gray-background-color: #F9F9F9;
   --active-text-color: #030303;
 }
 
@@ -51,4 +54,9 @@ body {
   vertical-align: middle;
 }
 
+@media (max-width: 599px) {
+  :root {
+    --margin-lr-container: 10px;
+  }
+}
 

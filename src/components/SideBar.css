@@ -1,5 +1,5 @@
 .side-bar {
-  width: 240px;
+  width: var(--side-bar-width);
   position: fixed;
   top: var(--header-height);
   left: 0;
@@ -9,6 +9,7 @@
   padding: 5px 0;
   margin: 0;
   overflow-y: hidden;
+  z-index: 99;
 }
 
 .side-bar:hover {
@@ -16,14 +17,14 @@
 }
 
 .side-bar--tablet {
-  width: 75px;
+  width: var(--side-bar-tablet-width);
 }
 
 .side-bar.side-bar--tablet:hover {
   overflow-y: hidden;
 }
 
-@media (max-width: 739px) {
+@media (max-width: 599px) {
   .side-bar {
     top: unset;
     left: 0;
@@ -32,9 +33,14 @@
     width: 100%;
     display: flex;
     justify-content: space-around;
+    padding-bottom: 0;
   }
 
   .side-bar .side-bar__item .side-bar__link {
     padding: 5px 0 0 0;
+  }
+
+  .side-bar .side-bar__item .side-bar__link > svg {
+    margin-bottom: 2px;
   }
 }
