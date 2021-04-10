@@ -17,7 +17,7 @@ const App = () => {
     }
     document.body.addEventListener('keypress', changeTheme)
     return () => {
-      document.body.removeEventListener('key')
+      document.body.removeEventListener('keypress', changeTheme)
     }
   }, [])
 
