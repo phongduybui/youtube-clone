@@ -1,0 +1,1 @@
+export const BARS_CLICK = 'BARS_CLICK';
