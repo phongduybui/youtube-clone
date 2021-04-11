@@ -1,1 +1,3 @@
 export const BARS_CLICK = 'BARS_CLICK';
+export const FETCH_HOME_VIDEOS = 'FETCH_HOME_VIDEOS';
+export const FETCH_CHANNEL = 'FETCH_CHANNEL';

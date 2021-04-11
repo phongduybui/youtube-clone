@@ -9,7 +9,7 @@
   margin: 0 calc(var(--margin-lr-container) * -1);
   padding: 0 var(--margin-lr-container);
   background-color: var(--background-color);
-  z-index: 99;
+  z-index: 99999;
 }
 
 .header__logo {
