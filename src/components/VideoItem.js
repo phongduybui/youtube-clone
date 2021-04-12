@@ -38,7 +38,7 @@ const VideoItem = ({
                 className="video-item__thumbnail-img"
                 src={`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&modestbranding=1&controls=0`}
                 title="yt" 
-                frameborder="0" 
+                frameBorder="0" 
                 allow="autoplay"
               ></iframe>
               : <img
@@ -64,7 +64,7 @@ const VideoItem = ({
         )}
       </div>
       <div className="video-item__details">
-        <Link to="" className="video-item__details-avatar">
+        <Link to="/" className="video-item__details-avatar">
           {channel ? (
             <img
               src={channel.snippet.thumbnails.high.url}
@@ -76,7 +76,7 @@ const VideoItem = ({
         </Link>
         <div className="video-item__details-meta">
           <h3 className="video-item__details-meta__title">
-            <Link className="video-item__details__title-link text-clamp">
+            <Link to="/" className="video-item__details__title-link text-clamp">
               {title ? title : <Skeleton />}
             </Link>
           </h3>

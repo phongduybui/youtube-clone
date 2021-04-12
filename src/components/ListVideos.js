@@ -68,7 +68,7 @@ const ListVideos = ({
     if(isFetchingData) {
       let videos = [];
       for(let i = 1; i <= 8; i++) {
-        videos = [...videos, <VideoItem />];
+        videos = [...videos, <VideoItem key={i} />];
       }
       return videos;
     }
