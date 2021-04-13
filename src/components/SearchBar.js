@@ -1,26 +1,40 @@
 import './SearchBar.css';
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import HeaderButton from './HeaderButton';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { MdArrowBack } from 'react-icons/md'
 
 const SearchBar = ({ isMobile, setMobile }) => {
 
+  const { width } = useWindowDimensions();
+  const refSearchBar = useRef();
+
+  useEffect(() => {
+    const onBodyClick = (e) => {
+      if(refSearchBar.current && refSearchBar.current.contains(e.target)) {
+        return;
+      }
+      setMobile(false);
+    }
+
+    document.body.addEventListener('click', onBodyClick);
+
+    return () => document.body.removeEventListener('click', onBodyClick);
+  }, [])
+
   const renderBackButton = () => {
     if(isMobile) {
       return (
-        <div 
-          className="search-bar__back-btn"
-          onClick={() => setMobile(!isMobile)}
-        >
+        <div className="search-bar__back-btn" onClick={() => setMobile(false)}>
           <MdArrowBack />
         </div>
       )
     }
   }
-
+  const searchBarOnMobile = isMobile && width < 739? 'search-bar--mobile' : '';
   return (
-    <div className={`search-bar ${isMobile ? 'search-bar--mobile' : ''}`}>
+    <div ref={refSearchBar} className={`search-bar ${searchBarOnMobile}`}>
       {renderBackButton()}
       <input 
         type="text"

@@ -1,7 +1,7 @@
 import './Header.css';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { barsClick } from '../actions';
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MdDehaze } from 'react-icons/md';
 import { ImYoutube2 } from 'react-icons/im';
@@ -40,7 +40,7 @@ const Header = ({ isBarsClick, barsClick }) => {
         <HeaderButton
             className="btn--search-mobile"
             Icon={<AiOutlineSearch />}
-            onClick={() => setMobileSearchClick(true)}
+            onClick={(e) => {setMobileSearchClick(true); e.stopPropagation()}}
         />
         <div className="header__user">
           <HeaderButton

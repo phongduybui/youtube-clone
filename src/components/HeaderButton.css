@@ -28,7 +28,9 @@
   background-color: var(--background-btn-color);
   border: 1px solid var(--border-color);
   border-left: none;
-  border-radius: 1px;
+  border-radius: 2px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   width: 65px;
   margin-left: 0;
 }
