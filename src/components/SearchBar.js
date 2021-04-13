@@ -24,7 +24,7 @@ const SearchBar = ({ isMobile, setMobile }) => {
   }, [])
 
   const renderBackButton = () => {
-    if(isMobile) {
+    if(isMobile && width < 739) {
       return (
         <div className="search-bar__back-btn" onClick={() => setMobile(false)}>
           <MdArrowBack />
