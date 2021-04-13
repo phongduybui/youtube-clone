@@ -32,5 +32,6 @@
 @media (max-width: 599px) {
   .list-videos {
     margin-left: 0;
+    padding: 20px 0 0 0;
   }
 }

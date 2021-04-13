@@ -17,7 +17,8 @@
   --background-color: #fff;
   --gray-background-color: #F9F9F9;
   --active-text-color: #030303;
-  --btn-search-hover: #e9e9e9; 
+  --btn-search-hover: #e9e9e9;
+  --side-bar-item-line-break-color: rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -58,6 +59,7 @@ body {
   --nav-active-color: #383838;
   --nav-active-hover-color: #4D4D4D;
   --active-text-color: #fff;
+  --side-bar-item-line-break-color: rgba(255, 255, 255, 0.1);
 }
 .dark-mode .react-icons {
   color: white;

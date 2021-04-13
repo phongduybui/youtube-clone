@@ -20,29 +20,46 @@ const VideoItem = ({
   publishedAt,
   isDarkMode,
 }) => {
-  
+
+  const [isIframeLoaded, setIsIframeLoaded] = useState('');
   const [isPreviewShown, setIsPreviewShown] = useState(false);
   const darkSkeleton = isDarkMode ? { color: "#202020", highlightColor: "#444" } : null;
+
+  const handleVideoMouseLeave = () => {
+    setIsPreviewShown(false); 
+    setIsIframeLoaded('');
+  }
 
   return (
     <div className="video-item" 
       onMouseEnter={() => setIsPreviewShown(true)}
-      onMouseLeave={() => setIsPreviewShown(false)}
+      onMouseLeave={handleVideoMouseLeave}
     >
       <div className="video-item__thumbnail">
         {thumbnails && title ? (
           <React.Fragment>
             <div className="video-item__thumbnail-preview">
               {isPreviewShown 
-              ? <iframe 
-                width="100%" 
-                height="100%"
-                className="video-item__thumbnail-img"
-                src={`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&modestbranding=1&controls=0`}
-                title="yt" 
-                frameBorder="0" 
-                allow="autoplay"
-              ></iframe>
+              ? 
+              <div className="iframe-container">
+                <div className={`ui inverted large loader ${isIframeLoaded ? '': 'active'}`}>
+                </div>
+                <img
+                  className={`video-item__thumbnail-img iframe__loader ${isIframeLoaded}`}
+                  src={thumbnails.high?.url || thumbnails.medium?.url || thumbnails.default?.url}
+                  alt={title}
+                />
+                <iframe
+                  height="100%"
+                  width="100%"
+                  onLoad={() => setIsIframeLoaded('is-loaded')}
+                  className={`video-item__thumbnail-img iframe__video ${isIframeLoaded}`}
+                  src={`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&modestbranding=1&controls=0`}
+                  title=" "
+                  frameBorder="0" 
+                  allow="autoplay"
+                ></iframe>
+              </div>
               : <img
                 className="video-item__thumbnail-img"
                 src={thumbnails.high?.url || thumbnails.medium?.url || thumbnails.default?.url}

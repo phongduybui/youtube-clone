@@ -166,6 +166,31 @@
   margin: 0 3px;
 }
 
+.iframe-container {
+  position: relative;
+  height: 100%;
+}
+
+.iframe__loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.iframe__loader.is-loaded {
+  display: none;
+}
+
+.iframe__video {
+  opacity: 0;
+}
+
+.iframe__video.is-loaded {
+  opacity: 1;
+}
+
 @media (min-width: 1400px) {
   .video-item__thumbnail-preview {
     height: 200px;
@@ -198,6 +223,7 @@
   .video-item {
     flex: 0 0 100%;
     max-width: 100%;
+    margin-bottom: 25px;
   }
 
   .video-item__thumbnail-preview {

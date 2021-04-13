@@ -16,7 +16,7 @@
 .side-bar__list {
   list-style: none;
   margin: 0;
-  padding: 5px 0;
+  padding: 10px 0 5px;
 }
 
 .side-bar--tablet {
@@ -29,7 +29,7 @@
 
 .break-line {
   margin: 12px 12px 12px 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid var(--side-bar-item-line-break-color);
 }
 
 .side-bar.side-bar--tablet .break-line {
