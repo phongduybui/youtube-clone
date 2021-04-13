@@ -46,6 +46,10 @@
   color: var(--primary-color);
 }
 
+.dark-mode .header__logo-yt {
+  color: var(--primary-color);
+}
+
 .header__search-bar {
   font-size: 2.5rem;
   display: flex;

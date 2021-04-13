@@ -6,7 +6,7 @@ import { VscCircleFilled } from "react-icons/vsc";
 import { AiFillClockCircle } from "react-icons/ai";
 import { RiPlayList2Fill } from "react-icons/ri";
 import getTimeAgo from "../helpers/getTimeAgo";
-import Skeleton from "react-loading-skeleton";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const VideoItem = ({
   id,
@@ -18,9 +18,11 @@ const VideoItem = ({
   channelTitle,
   thumbnails,
   publishedAt,
+  isDarkMode,
 }) => {
   
   const [isPreviewShown, setIsPreviewShown] = useState(false);
+  const darkSkeleton = isDarkMode ? { color: "#202020", highlightColor: "#444" } : null;
 
   return (
     <div className="video-item" 
@@ -60,7 +62,9 @@ const VideoItem = ({
             </span>
           </React.Fragment>
         ) : (
-          <Skeleton height="145px" />
+          <SkeletonTheme {...darkSkeleton} >
+            <Skeleton height="145px" />
+          </SkeletonTheme>
         )}
       </div>
       <div className="video-item__details">
@@ -71,17 +75,27 @@ const VideoItem = ({
               alt={channel.snippet.title}
             />
           ) : (
-            <Skeleton circle width="35px" height="35px" />
+            <SkeletonTheme {...darkSkeleton} >
+              <Skeleton circle width="35px" height="35px" />
+            </SkeletonTheme>
           )}
         </Link>
         <div className="video-item__details-meta">
           <h3 className="video-item__details-meta__title">
             <Link to="/" className="video-item__details__title-link text-clamp">
-              {title ? title : <Skeleton />}
+              {title  
+              ? title 
+              : <SkeletonTheme {...darkSkeleton} >
+                  <Skeleton />
+              </SkeletonTheme>}
             </Link>
           </h3>
           <div className="video-item__details-meta__channel text-clamp text-clamp--1">
-            {channelTitle ? channelTitle : <Skeleton width="50%" />}
+            {channelTitle 
+            ? channelTitle 
+            : <SkeletonTheme {...darkSkeleton} >
+                <Skeleton width="50%" />
+              </SkeletonTheme>}
           </div>
           {viewCount && publishedAt ? (
             <div className="video-item__details-meta__statistic">
@@ -103,6 +117,7 @@ const VideoItem = ({
 const mapStateToProps = (state, ownProps) => {
   return {
     channel: state.homeChannels[ownProps.channelId],
+    isDarkMode: state.isDarkMode,
   };
 };
 

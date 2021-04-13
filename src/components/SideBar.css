@@ -5,15 +5,18 @@
   left: 0;
   bottom: 0;
   background-color: var(--background-color);
-  list-style: none;
-  padding: 5px 0;
-  margin: 0;
   overflow-y: hidden;
-  z-index: 99;
+  z-index: 999;
 }
 
 .side-bar:hover {
   overflow-y: auto;
+}
+
+.side-bar__list {
+  list-style: none;
+  margin: 0;
+  padding: 5px 0;
 }
 
 .side-bar--tablet {
@@ -24,6 +27,15 @@
   overflow-y: hidden;
 }
 
+.break-line {
+  margin: 12px 12px 12px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.side-bar.side-bar--tablet .break-line {
+  display: none;
+}
+
 @media (max-width: 599px) {
   .side-bar {
     top: unset;
@@ -31,6 +43,9 @@
     right: 0;
     bottom: 0;
     width: 100%;
+  }
+
+  .side-bar__list {
     display: flex;
     justify-content: space-around;
     padding-bottom: 0;

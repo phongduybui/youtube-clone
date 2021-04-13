@@ -3,9 +3,16 @@ import {
   FETCH_HOME_VIDEOS,
   FETCH_CHANNEL,
   SET_IS_FETCHING_DATA,
+  SET_DARK_MODE,
 } from "./types";
 import youtube from "../apis/youtube";
 import _ from "lodash";
+
+export const setDarkMode = () => {
+  return {
+    type: SET_DARK_MODE,
+  }
+}
 
 export const barsClick = () => {
   return {

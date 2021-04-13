@@ -92,8 +92,8 @@
 
 .video-item__thumbnail-duration {
   position: absolute;
-  bottom: 10px;
-  right: 3px;
+  bottom: 4px;
+  right: 4px;
   color: #fff;
   background-color: rgba(2,2,2, 0.9);
   padding: 0px 5px;

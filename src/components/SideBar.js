@@ -10,50 +10,46 @@ import { MdWatchLater } from "react-icons/md";
 import { RiVideoChatFill } from "react-icons/ri";
 import { BsFillCollectionPlayFill } from "react-icons/bs";
 import SideBarItem from "./SideBarItem";
+import Modal from "./Modal";
 
 const SideBar = ({ isBarsClick }) => {
   const { width } = useWindowDimensions();
   const ref = useRef();
-  
-  useEffect(() => {
-    if(ref.current) {
-      ref.current.classList.toggle('side-bar--tablet');
-    }
-  }, [isBarsClick])
 
   useEffect(() => {
-    if(ref.current && width < 739) {
-      ref.current.classList.add('side-bar--tablet');
+    if (ref.current) {
+      ref.current.classList.toggle("side-bar--tablet");
     }
-    if(ref.current && width >= 1024) {
-      ref.current.classList.remove('side-bar--tablet');
+  }, [isBarsClick]);
+
+  useEffect(() => {
+    if (ref.current && width < 739) {
+      ref.current.classList.add("side-bar--tablet");
     }
-  }, [width])
+    if (ref.current && width >= 1024) {
+      ref.current.classList.remove("side-bar--tablet");
+    }
+  }, [width]);
 
   return (
-    <ul ref={ref} className={`side-bar side-bar--tablet ${width < 1023 ? 'side-bar--tablet' : ''}`}>
-      <SideBarItem
-        onTablet
-        isActive
-        title="Trang chủ"
-        Icon={<MdHome />}
-      />
-      <SideBarItem onTablet title="Khám phá" Icon={<FaCompass />} />
-      <SideBarItem onTablet title="Kênh đăng kí" Icon={<SiYoutubetv />} />
-      <SideBarItem onTablet title="Thư viện" Icon={<MdVideoLibrary />} />
-      <SideBarItem title="Video đã xem" Icon={<MdWatchLater />} />
-      <SideBarItem title="Video của bạn" Icon={<BsFillCollectionPlayFill />} />
-      <SideBarItem title="Xem sau" Icon={<RiVideoChatFill />} />
-      {/* <SideBarItem title="Trang chủ" Icon={<MdHome />} />
-      <SideBarItem title="Trang chủ" Icon={<MdHome />} />
-      <SideBarItem title="Trang chủ" Icon={<MdHome />} />
-      <SideBarItem title="Trang chủ" Icon={<MdHome />} />
-      <SideBarItem title="Trang chủ" Icon={<MdHome />} />
-      <SideBarItem title="Trang chủ" Icon={<MdHome />} />
-      <SideBarItem title="Trang chủ" Icon={<MdHome />} />
-      <SideBarItem title="Trang chủ" Icon={<MdHome />} />
-      <SideBarItem title="Trang chủ" Icon={<MdHome />} /> */}
-    </ul>
+    <aside
+      ref={ref}
+      className={`side-bar side-bar--tablet ${
+        width < 1023 ? "side-bar--tablet" : ""
+      }`}
+    >
+      {/* { !isBarsClick && width < 1023 ? <Modal /> : null } */}
+      <ul className="side-bar__list">
+        <SideBarItem onTablet isActive title="Trang chủ" Icon={<MdHome />} />
+        <SideBarItem onTablet title="Khám phá" Icon={<FaCompass />} />
+        <SideBarItem onTablet title="Kênh đăng kí" Icon={<SiYoutubetv />} />
+        <li className="break-line"></li>
+        <SideBarItem onTablet title="Thư viện" Icon={<MdVideoLibrary />} />
+        <SideBarItem title="Video đã xem" Icon={<MdWatchLater />} />
+        <SideBarItem title="Video của bạn" Icon={<BsFillCollectionPlayFill />} />
+        <SideBarItem title="Xem sau" Icon={<RiVideoChatFill />} />
+      </ul>
+    </aside>
   );
 };
 

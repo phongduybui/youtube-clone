@@ -1,18 +1,20 @@
 import './App.css'
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { IconContext } from 'react-icons/lib';
+import { connect } from 'react-redux';
+import { setDarkMode } from '../actions';
 import Header from './Header';
 import SideBar from './SideBar';
-import { IconContext } from 'react-icons/lib';
 import ListVideos from './ListVideos';
 
-const App = () => {
+const App = ({setDarkMode}) => {
   
-
   useEffect(() => {
     const changeTheme = (e) => {
       if(e.which === 13) {
         document.body.classList.toggle('dark-mode');
+        setDarkMode();
       }
       return;
     }
@@ -35,4 +37,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default connect(null, { setDarkMode })(App);
