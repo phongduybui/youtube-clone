@@ -46,7 +46,7 @@ const SearchBar = ({ isMobile, setMobile }) => {
       <HeaderButton
         className="btn--search"
         dataTitle="Tìm kiếm"
-        Icon={<AiOutlineSearch />} 
+        Icon={AiOutlineSearch} 
       />
     </div>
   )

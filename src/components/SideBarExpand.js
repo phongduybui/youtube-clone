@@ -9,11 +9,12 @@ import SideBarItem from "./SideBarItem";
 import Modal from "./Modal";
 
 const SideBarExpand = ({ isBarClick, barStatus, hidden }) => {
-  const showExpand =  isBarClick && hidden ? 'show-side-bar-expand' : '';
+
+  const showExpand =  (isBarClick || !hidden) ? '' : 'show-side-bar-expand';
 
   return (
     <div className={`side-bar__expand ${barStatus} ${showExpand}`}>
-      {isBarClick && hidden ? <Modal/> : null}
+      {(!isBarClick && hidden) ? <Modal/> : null}
       <ul className={`side-bar__list`}>
         <SideBarItem isActive title="Trang chủ" Icon={MdHome} />
         <SideBarItem title="Khám phá" Icon={FaCompass} />

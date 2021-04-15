@@ -22,7 +22,8 @@ const Header = ({ isBarClick, setBarClick }) => {
         <div className="header__logo">
           <HeaderButton
               className={`header__logo-bars ${isBarClick ? 'active' : ''} `}
-              Icon={<MdDehaze />}
+              Icon={MdDehaze}
+              
               onClick={() => setBarClick()}
           />
           <Link to="/">
@@ -34,29 +35,29 @@ const Header = ({ isBarClick, setBarClick }) => {
           <HeaderButton
             className="btn-no-border"
             dataTitle="Tìm kiếm bằng giọng nói"
-            Icon={<MdKeyboardVoice />}
+            Icon={MdKeyboardVoice}
           />
         </div>
         <HeaderButton
             className="btn--search-mobile"
-            Icon={<AiOutlineSearch />}
+            Icon={AiOutlineSearch}
             onClick={(e) => {setMobileSearchClick(true); e.stopPropagation()}}
         />
         <div className="header__user">
           <HeaderButton
             className="btn--user user__upload"
             dataTitle="Tạo"
-            Icon={<RiVideoUploadLine />}
+            Icon={RiVideoUploadLine}
           />
           <HeaderButton
             className="btn--user user__app"
             dataTitle="Các ứng dụng"
-            Icon={<CgMenuGridO />}
+            Icon={CgMenuGridO}
           />
           <HeaderButton
             className="btn--user user__notify"
             dataTitle="Thông báo"
-            Icon={<MdNotifications />}
+            Icon={MdNotifications}
           />
           <div className="user">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyz-77X11MoGE22xVjjPhbpW6lPj6I0SkcTQ&usqp=CAU" alt="" className="user__avatar"/>
