@@ -2,18 +2,21 @@ import "./ListVideos.css";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchHomeVideosAndChannels, setIsFetchingData } from "../actions";
+import useWindowDimensions from '../hooks/useWindowDimensions';
 import convertDuration from "../helpers/convertDuration";
 import convertViewCount from "../helpers/convertViewCount";
 import VideoItem from "./VideoItem";
 
 const ListVideos = ({
   homeVideos,
-  barsCollapse,
+  isBarClick,
   nextPageToken,
   fetchHomeVideosAndChannels,
   setIsFetchingData,
   isFetchingData
 }) => {
+
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     setIsFetchingData(true);
@@ -74,8 +77,10 @@ const ListVideos = ({
     }
   }
 
+  const sideBarStatus = isBarClick && width >= 1024 ? 'collapse' : '';
+
   return (
-    <div className={`list-videos ${barsCollapse ? 'bars-collapsed' : ''}`}>
+    <div className={`list-videos ${sideBarStatus}`}>
       
       <div className="list-videos-wrapper">
         {renderHomeVideos()}
@@ -86,7 +91,7 @@ const ListVideos = ({
 }
 
 const mapStateToProps = (state) => ({
-  barsCollapse: state.isBarsClick,
+  isBarClick: state.isBarClick,
   homeVideos: Object.values(state.homeVideos),
   nextPageToken: state.homeVideos.nextPageToken,
   isFetchingData: state.isFetchingData,

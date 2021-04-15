@@ -2,13 +2,12 @@ import './SideBarItem.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const SideBarItem = ({ Icon, title, isActive, onTablet }) => {
-  const showOnTablet = onTablet ? 'show-on-tablet' : '';
+const SideBarItem = ({ Icon, title, isActive }) => {
   const active = isActive ? 'active' : '';
   return (
-    <li className={`side-bar__item ${showOnTablet}`}>
+    <li className={`side-bar__item`}>
       <Link to="/" className={`side-bar__link ${active}`}>
-        {Icon}
+        <Icon />
         <span className="side-bar__title">{title}</span>
       </Link>
     </li>

@@ -1,5 +1,5 @@
 import {
-  BARS_CLICK,
+  SET_BAR_CLICK,
   FETCH_HOME_VIDEOS,
   FETCH_CHANNEL,
   SET_IS_FETCHING_DATA,
@@ -14,9 +14,9 @@ export const setDarkMode = () => {
   }
 }
 
-export const barsClick = () => {
+export const setBarClick = () => {
   return {
-    type: BARS_CLICK,
+    type: SET_BAR_CLICK
   };
 };
 

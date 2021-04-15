@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import BarsClickReducer from './BarsClickReducer';
+import setBarClickReducer from './setBarClickReducer';
 import channelReducer from './channelReducer';
 import videoReducer from './videoReducer';
 import isFetchingDataReducer from './setIsFetchingDataReducer';
 import setDarkModeReducer from './setDarkModeReducer';
 
 export default combineReducers({
-  isBarsClick: BarsClickReducer,
+  isBarClick: setBarClickReducer,
   homeVideos: videoReducer,
   homeChannels: channelReducer,
   isFetchingData: isFetchingDataReducer,

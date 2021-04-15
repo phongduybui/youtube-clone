@@ -1,7 +1,7 @@
 import './Header.css';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { barsClick } from '../actions';
+import { setBarClick } from '../actions';
 import { Link } from 'react-router-dom';
 import { MdDehaze } from 'react-icons/md';
 import { ImYoutube2 } from 'react-icons/im';
@@ -14,16 +14,16 @@ import SearchBar from './SearchBar';
 import HeaderButton from './HeaderButton';
 
 
-const Header = ({ isBarsClick, barsClick }) => {
+const Header = ({ isBarClick, setBarClick }) => {
   const [isMobileSearchClick, setMobileSearchClick] = useState(false);
 
   return (
     <header className="header">
         <div className="header__logo">
           <HeaderButton
-              className={`header__logo-bars ${isBarsClick ? 'active' : ''} `}
+              className={`header__logo-bars ${isBarClick ? 'active' : ''} `}
               Icon={<MdDehaze />}
-              onClick={() => barsClick()}
+              onClick={() => setBarClick()}
           />
           <Link to="/">
             <ImYoutube2 className="header__logo-yt" />
@@ -66,6 +66,6 @@ const Header = ({ isBarsClick, barsClick }) => {
   )
 }
 
-const mapStateToProps = state => ({ isBarsClick: state.isBarsClick });
+const mapStateToProps = state => ({ isBarClick: state.isBarClick });
 
-export default connect(mapStateToProps, { barsClick })(Header);
+export default connect(mapStateToProps, { setBarClick })(Header);

@@ -17,6 +17,10 @@
   flex-wrap: wrap;
 }
 
+.list-videos.collapse {
+  margin-left: calc(var(--side-bar-tablet-width) - var(--margin-lr-container));
+}
+
 @media (min-width: 886px) and (max-width: 1023px) {
   .list-videos {
     margin-left: 50px;

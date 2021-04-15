@@ -1,5 +1,5 @@
 import "./SideBar.css";
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { connect } from "react-redux";
 import { MdHome } from "react-icons/md";
@@ -11,48 +11,56 @@ import { RiVideoChatFill } from "react-icons/ri";
 import { BsFillCollectionPlayFill } from "react-icons/bs";
 import SideBarItem from "./SideBarItem";
 import Modal from "./Modal";
+import SideBarCollapse from "./SideBarCollapse";
+import SideBarExpand from "./SideBarExpand";
 
-const SideBar = ({ isBarsClick }) => {
+const SideBar = ({ isBarClick }) => {
   const { width } = useWindowDimensions();
-  const ref = useRef();
 
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.classList.toggle("side-bar--tablet");
-    }
-  }, [isBarsClick]);
+  // useEffect(() => {
+  //   if (ref.current) {
+  //     ref.current.classList.toggle("side-bar--tablet");
+  //   }
+  // }, [isBarsClick]);
 
-  useEffect(() => {
-    if (ref.current && width < 739) {
-      ref.current.classList.add("side-bar--tablet");
+  // useEffect(() => {
+  //   if (ref.current && width < 739) {
+  //     ref.current.classList.add("side-bar--tablet");
+  //   }
+  //   if (ref.current && width >= 1024) {
+  //     ref.current.classList.remove("side-bar--tablet");
+  //   }
+  // }, [width]);
+
+  const barStatus = isBarClick ? 'collapse' : 'expand';
+
+  function renderSideBar() { 
+    if(width >= 1024) {
+      return (
+        <>
+          <SideBarExpand barStatus={barStatus} />
+          <SideBarCollapse barStatus={barStatus} />
+        </>
+      )
     }
-    if (ref.current && width >= 1024) {
-      ref.current.classList.remove("side-bar--tablet");
+    else if(width <= 1023 && width >= 600){
+      return <>
+        <SideBarExpand barStatus="collapse" hidden />
+        <SideBarCollapse barStatus="collapse" />
+      </>
     }
-  }, [width]);
+    else {
+      return <SideBarCollapse barStatus="collapse mobile" />
+    }
+  }
 
   return (
-    <aside
-      ref={ref}
-      className={`side-bar side-bar--tablet ${
-        width < 1023 ? "side-bar--tablet" : ""
-      }`}
-    >
-      {/* { !isBarsClick && width < 1023 ? <Modal /> : null } */}
-      <ul className="side-bar__list">
-        <SideBarItem onTablet isActive title="Trang chủ" Icon={<MdHome />} />
-        <SideBarItem onTablet title="Khám phá" Icon={<FaCompass />} />
-        <SideBarItem onTablet title="Kênh đăng kí" Icon={<SiYoutubetv />} />
-        <li className="break-line"></li>
-        <SideBarItem onTablet title="Thư viện" Icon={<MdVideoLibrary />} />
-        <SideBarItem title="Video đã xem" Icon={<MdWatchLater />} />
-        <SideBarItem title="Video của bạn" Icon={<BsFillCollectionPlayFill />} />
-        <SideBarItem title="Xem sau" Icon={<RiVideoChatFill />} />
-      </ul>
+    <aside className={`side-bar`}>
+      {renderSideBar()}
     </aside>
   );
 };
 
-const mapStateToProps = (state) => ({ isBarsClick: state.isBarsClick });
+const mapStateToProps = (state) => ({ isBarClick: state.isBarClick });
 
 export default connect(mapStateToProps)(SideBar);

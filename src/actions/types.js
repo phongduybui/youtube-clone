@@ -1,4 +1,4 @@
-export const BARS_CLICK = 'BARS_CLICK';
+export const SET_BAR_CLICK = 'SET_BAR_CLICK';
 export const FETCH_HOME_VIDEOS = 'FETCH_HOME_VIDEOS';
 export const FETCH_CHANNEL = 'FETCH_CHANNEL';
 export const SET_IS_FETCHING_DATA = 'SET_IS_FETCHING_DATA';
