@@ -1,40 +1,25 @@
 import "./SideBar.css";
 import React, { useEffect } from "react";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import { setBarClick } from '../actions';
 import { connect } from "react-redux";
-import { MdHome } from "react-icons/md";
-import { FaCompass } from "react-icons/fa";
-import { SiYoutubetv } from "react-icons/si";
-import { MdVideoLibrary } from "react-icons/md";
-import { MdWatchLater } from "react-icons/md";
-import { RiVideoChatFill } from "react-icons/ri";
-import { BsFillCollectionPlayFill } from "react-icons/bs";
-import SideBarItem from "./SideBarItem";
-import Modal from "./Modal";
 import SideBarCollapse from "./SideBarCollapse";
 import SideBarExpand from "./SideBarExpand";
 
-const SideBar = ({ isBarClick }) => {
+const SideBar = ({ isBarClick, setBarClick }) => {
   const { width } = useWindowDimensions();
 
-  // useEffect(() => {
-  //   if (ref.current) {
-  //     ref.current.classList.toggle("side-bar--tablet");
-  //   }
-  // }, [isBarsClick]);
-
-  // useEffect(() => {
-  //   if (ref.current && width < 739) {
-  //     ref.current.classList.add("side-bar--tablet");
-  //   }
-  //   if (ref.current && width >= 1024) {
-  //     ref.current.classList.remove("side-bar--tablet");
-  //   }
-  // }, [width]);
+  useEffect(() => {
+    if(width <= 1023 && width >= 600) {
+      setBarClick(true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width])
 
   const barStatus = isBarClick ? 'collapse' : 'expand';
 
   function renderSideBar() { 
+   
     if(width >= 1024) {
       return (
         <>
@@ -45,7 +30,7 @@ const SideBar = ({ isBarClick }) => {
     }
     else if(width <= 1023 && width >= 600){
       return <>
-        <SideBarExpand barStatus="collapse" hidden />
+        <SideBarExpand barStatus="collapse" isTablet />
         <SideBarCollapse barStatus="collapse" />
       </>
     }
@@ -63,4 +48,4 @@ const SideBar = ({ isBarClick }) => {
 
 const mapStateToProps = (state) => ({ isBarClick: state.isBarClick });
 
-export default connect(mapStateToProps)(SideBar);
+export default connect(mapStateToProps, { setBarClick })(SideBar);

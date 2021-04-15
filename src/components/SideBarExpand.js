@@ -8,13 +8,13 @@ import { SiYoutubetv } from "react-icons/si";
 import SideBarItem from "./SideBarItem";
 import Modal from "./Modal";
 
-const SideBarExpand = ({ isBarClick, barStatus, hidden }) => {
+const SideBarExpand = ({ isBarClick, barStatus, isTablet }) => {
 
-  const showExpand =  (isBarClick || !hidden) ? '' : 'show-side-bar-expand';
+  const showExpand =  (!isBarClick && isTablet) ? 'show-side-bar-expand' : '';
 
   return (
     <div className={`side-bar__expand ${barStatus} ${showExpand}`}>
-      {(!isBarClick && hidden) ? <Modal/> : null}
+      {(!isBarClick && isTablet) ? <Modal/> : null}
       <ul className={`side-bar__list`}>
         <SideBarItem isActive title="Trang chủ" Icon={MdHome} />
         <SideBarItem title="Khám phá" Icon={FaCompass} />

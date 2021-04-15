@@ -24,7 +24,7 @@ const Header = ({ isBarClick, setBarClick }) => {
               className={`header__logo-bars ${isBarClick ? 'active' : ''} `}
               Icon={MdDehaze}
               
-              onClick={() => setBarClick()}
+              onClick={() => setBarClick(!isBarClick)}
           />
           <Link to="/">
             <ImYoutube2 className="header__logo-yt" />

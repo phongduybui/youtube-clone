@@ -22,7 +22,7 @@
 }
 
 .side-bar__expand.collapse .side-bar__list {
-  left: -240px;
+  left: calc(var(--side-bar-width) * -1);
 }
 
 .side-bar__expand.expand .side-bar__list {
@@ -47,6 +47,7 @@
     display: block;
     width: var(--side-bar-tablet-width);
   }
+
 
   .side-bar__expand.show-side-bar-expand .side-bar__list {
     width: var(--side-bar-width);

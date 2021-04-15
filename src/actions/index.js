@@ -14,9 +14,10 @@ export const setDarkMode = () => {
   }
 }
 
-export const setBarClick = () => {
+export const setBarClick = (value) => {
   return {
-    type: SET_BAR_CLICK
+    type: SET_BAR_CLICK,
+    payload: value
   };
 };
 
