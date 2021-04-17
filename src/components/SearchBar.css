@@ -1,9 +1,13 @@
 .search-bar__input {
+  color: var(--search-bar-input-color);
   padding: 5px 8px;
   flex-grow: 1;
   border: 1px solid var(--border-color);
-  background-color: var(--search-bar-input-color);
+  background-color: var(--search-bar-input-background-color);
   height: var(--search-box-height);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-right: 0;
 }
 
 .search-bar__input:focus {
