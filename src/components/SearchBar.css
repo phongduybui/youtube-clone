@@ -31,6 +31,7 @@
   transform: translateY(0);
   background-color: var(--background-color);
   padding: 5px var(--margin-lr-container);
+  z-index: 9999;
 }
 
 

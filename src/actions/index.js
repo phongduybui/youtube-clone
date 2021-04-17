@@ -3,14 +3,15 @@ import {
   FETCH_HOME_VIDEOS,
   FETCH_CHANNEL,
   SET_IS_FETCHING_DATA,
-  SET_DARK_MODE,
+  TOGGLE_DARK_MODE,
+  FETCH_VIDEOS_BY_TERM,
 } from "./types";
 import youtube from "../apis/youtube";
 import _ from "lodash";
 
-export const setDarkMode = () => {
+export const toggleDarkMode = () => {
   return {
-    type: SET_DARK_MODE,
+    type: TOGGLE_DARK_MODE,
   }
 }
 
@@ -104,3 +105,21 @@ const _fetchChannel = _.memoize(async (channelId, dispatch) => {
 
   dispatch({ type: FETCH_CHANNEL, payload: response.data.items });
 });
+
+export const fetchVideosByTerm = term => dispatch => _fetchVideosByTerm(term, dispatch);
+const _fetchVideosByTerm = _.memoize(async (term, dispatch) => {
+  const response = await youtube.get('/search', {
+    part: "snippet, contentDetails, statistics",
+    q: term,
+    maxResults: 20
+  });
+
+  dispatch({ type: FETCH_VIDEOS_BY_TERM, payload: response.data });
+});
+
+export const fetchVideoSAndChannelsByTerm = (term) => async (dispatch, getState) => {
+  await dispatch(fetchVideosByTerm(term));
+
+  const channelIds = _.uniq(_.map(getState().searchResults, video => video.snippet.id));
+  channelIds.forEach(id => dispatch(fetchChannel(id)));
+}

@@ -40,7 +40,7 @@ const SideBar = ({ isBarClick, setBarClick }) => {
   }
 
   return (
-    <aside className={`side-bar`}>
+    <aside className="side-bar">
       {renderSideBar()}
     </aside>
   );

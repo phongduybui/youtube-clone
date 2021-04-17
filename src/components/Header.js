@@ -1,5 +1,6 @@
 import './Header.css';
 import React, { useState } from 'react';
+import { toggleDarkMode } from '../actions';
 import { connect } from 'react-redux';
 import { setBarClick } from '../actions';
 import { Link } from 'react-router-dom';
@@ -7,15 +8,20 @@ import { MdDehaze } from 'react-icons/md';
 import { ImYoutube2 } from 'react-icons/im';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { MdKeyboardVoice } from 'react-icons/md';
-import { RiVideoUploadLine } from 'react-icons/ri';
 import { CgMenuGridO } from 'react-icons/cg';
 import { MdNotifications } from 'react-icons/md';
+import { BiSun } from 'react-icons/bi';
+import { CgDarkMode } from 'react-icons/cg';
 import SearchBar from './SearchBar';
 import HeaderButton from './HeaderButton';
 
 
-const Header = ({ isBarClick, setBarClick }) => {
+const Header = ({ isDarkMode, toggleDarkMode, isBarClick, setBarClick }) => {
   const [isMobileSearchClick, setMobileSearchClick] = useState(false);
+  const onDarkModeClick = () => {
+    document.body.classList.toggle('dark-mode');
+    toggleDarkMode();
+  }
 
   return (
     <header className="header">
@@ -45,9 +51,10 @@ const Header = ({ isBarClick, setBarClick }) => {
         />
         <div className="header__user">
           <HeaderButton
-            className="btn--user user__upload"
-            dataTitle="Tạo"
-            Icon={RiVideoUploadLine}
+            className="btn--user user__darkmode"
+            dataTitle={isDarkMode ? "Dark Mode" : "Light Mode"}
+            Icon={isDarkMode ? BiSun : CgDarkMode}
+            onClick={() => onDarkModeClick()}
           />
           <HeaderButton
             className="btn--user user__app"
@@ -67,6 +74,9 @@ const Header = ({ isBarClick, setBarClick }) => {
   )
 }
 
-const mapStateToProps = state => ({ isBarClick: state.isBarClick });
+const mapStateToProps = state => ({
+   isBarClick: state.isBarClick,
+   isDarkMode: state.isDarkMode
+});
 
-export default connect(mapStateToProps, { setBarClick })(Header);
+export default connect(mapStateToProps, { setBarClick, toggleDarkMode })(Header);
