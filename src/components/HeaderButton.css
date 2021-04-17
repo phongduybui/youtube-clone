@@ -50,10 +50,9 @@
 .btn--search-mobile {
   display: none;
   position: unset;
-  flex: 1;
+  margin-left: auto;
   text-align: right;
   padding: 0 10px;
-  margin-left: calc(100% - 175px);
 }
 
 .btn--user {
@@ -78,6 +77,10 @@
     display: none;
   }
 
+  .user__darkmode {
+    display: block !important;
+  }
+
   .btn--search-mobile {
     display: block;
   }
@@ -87,5 +90,11 @@
 @media (max-width: 599px) {
   .header__logo-bars {
     display: none;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 885px) {
+  .btn--user {
+    margin: 3px;
   }
 }
