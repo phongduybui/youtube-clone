@@ -4,6 +4,7 @@ import channelReducer from './channelReducer';
 import videoReducer from './videoReducer';
 import isFetchingDataReducer from './setIsFetchingDataReducer';
 import toggleDarkModeReducer from './toggleDarkModeReducer';
+import searchResultsReducer from './searchResultsReducer';
 
 export default combineReducers({
   isBarClick: setBarClickReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   homeChannels: channelReducer,
   isFetchingData: isFetchingDataReducer,
   isDarkMode: toggleDarkModeReducer,
+  searchResults: searchResultsReducer,
 });

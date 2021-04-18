@@ -2,21 +2,18 @@ import "./ListVideos.css";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchHomeVideosAndChannels, setIsFetchingData } from "../actions";
-import useWindowDimensions from '../hooks/useWindowDimensions';
 import convertDuration from "../helpers/convertDuration";
 import convertViewCount from "../helpers/convertViewCount";
 import VideoItem from "./VideoItem";
+import LineLoader from "./LineLoader";
 
 const ListVideos = ({
   homeVideos,
-  isBarClick,
   nextPageToken,
   fetchHomeVideosAndChannels,
   setIsFetchingData,
   isFetchingData
 }) => {
-
-  const { width } = useWindowDimensions();
 
   useEffect(() => {
     setIsFetchingData(true);
@@ -40,7 +37,6 @@ const ListVideos = ({
     if (homeVideos) {
       return homeVideos.map((video) => {
         if(typeof video === 'object') {
-
           const { 
             title, 
             channelTitle,
@@ -57,8 +53,8 @@ const ListVideos = ({
               channelTitle={channelTitle}
               thumbnails={thumbnails}
               publishedAt={publishedAt}
-              duration={convertDuration(video.contentDetails.duration)}
-              viewCount={convertViewCount(video.statistics.viewCount)}
+              duration={convertDuration(video.contentDetails?.duration)}
+              viewCount={convertViewCount(video.statistics?.viewCount)}
               key={video.id}
             />
           );
@@ -77,11 +73,9 @@ const ListVideos = ({
     }
   }
 
-  const sideBarStatus = isBarClick && width >= 1024 ? 'collapse' : '';
-
   return (
-    <div className={`list-videos ${sideBarStatus}`}>
-      
+    <div className="list-videos">
+      <LineLoader />
       <div className="list-videos-wrapper">
         {renderHomeVideos()}
         {renderSkeleton()}
@@ -91,7 +85,6 @@ const ListVideos = ({
 }
 
 const mapStateToProps = (state) => ({
-  isBarClick: state.isBarClick,
   homeVideos: Object.values(state.homeVideos),
   nextPageToken: state.homeVideos.nextPageToken,
   isFetchingData: state.isFetchingData,

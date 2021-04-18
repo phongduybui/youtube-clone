@@ -1,12 +1,15 @@
 import './SearchBar.css';
-import React, { useRef, useEffect } from 'react';
-import HeaderButton from './HeaderButton';
-import useWindowDimensions from '../hooks/useWindowDimensions';
+import React, { useState, useRef, useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { MdArrowBack } from 'react-icons/md'
+import { MdArrowBack } from 'react-icons/md';
+import { fetchVideosAndChannelsByTerm } from '../actions';
+import useWindowDimensions from '../hooks/useWindowDimensions';
+import HeaderButton from './HeaderButton';
+import { connect } from 'react-redux';
 
-const SearchBar = ({ isMobile, setMobile }) => {
 
+const SearchBar = ({ isMobile, setMobile, fetchVideosAndChannelsByTerm }) => {
+  const [term, setTerm] = useState('');
   const { width } = useWindowDimensions();
   const refSearchBar = useRef();
 
@@ -17,10 +20,9 @@ const SearchBar = ({ isMobile, setMobile }) => {
       }
       setMobile(false);
     }
-
     document.body.addEventListener('click', onBodyClick);
-
     return () => document.body.removeEventListener('click', onBodyClick);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const renderBackButton = () => {
@@ -32,24 +34,27 @@ const SearchBar = ({ isMobile, setMobile }) => {
       )
     }
   }
-  const searchBarOnMobile = isMobile && width < 739? 'search-bar--mobile' : '';
+
+  const searchBarMobile = isMobile && width < 739? 'search-bar--mobile' : '';
   return (
-    <div ref={refSearchBar} className={`search-bar ${searchBarOnMobile}`}>
+    <div ref={refSearchBar} className={`search-bar ${searchBarMobile}`}>
       {renderBackButton()}
       <input 
         type="text"
-        name="search" 
+        name="search"
+        value={term}
+        onChange={(e) => setTerm(e.target.value)}
         className="search-bar__input"
         placeholder="Tìm kiếm"
-        autoComplete="on"
       />
       <HeaderButton
         className="btn--search"
         dataTitle="Tìm kiếm"
         Icon={AiOutlineSearch} 
+        onClick={() => fetchVideosAndChannelsByTerm(term)}
       />
     </div>
   )
 }
 
-export default SearchBar;
+export default connect(null, { fetchVideosAndChannelsByTerm })(SearchBar);

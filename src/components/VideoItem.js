@@ -9,6 +9,7 @@ import getTimeAgo from "../helpers/getTimeAgo";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const VideoItem = ({
+  className,
   id,
   channelId,
   channel,
@@ -17,6 +18,7 @@ const VideoItem = ({
   title,
   channelTitle,
   thumbnails,
+  description,
   publishedAt,
   isDarkMode,
 }) => {
@@ -31,7 +33,7 @@ const VideoItem = ({
   }
 
   return (
-    <div className="video-item" 
+    <div className={`video-item ${className}`} 
       onMouseEnter={() => setIsPreviewShown(true)}
       onMouseLeave={handleVideoMouseLeave}
     >
@@ -52,7 +54,7 @@ const VideoItem = ({
                 <iframe
                   height="100%"
                   width="100%"
-                  onLoad={() => setIsIframeLoaded('is-loaded')}
+                  onLoad={() => setTimeout(() => setIsIframeLoaded('is-loaded'), 1500)}
                   className={`video-item__thumbnail-img iframe__video ${isIframeLoaded}`}
                   src={`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&modestbranding=1&controls=0`}
                   title=" "
@@ -122,9 +124,12 @@ const VideoItem = ({
                 {getTimeAgo(publishedAt)}
               </span>
             </div>
-          ) : (
-            <Skeleton width="0" />
-          )}
+          ) : null
+          }
+          {description  
+          ? <div className="video-item__description text-clamp">{description}</div>
+          : null
+          }
         </div>
       </div>
     </div>
@@ -133,7 +138,8 @@ const VideoItem = ({
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    channel: state.homeChannels[ownProps.channelId],
+    channel: state.homeChannels[ownProps.channelId] 
+    || state.searchResults.channels[ownProps.channelId],
     isDarkMode: state.isDarkMode,
   };
 };

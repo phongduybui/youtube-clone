@@ -1,0 +1,31 @@
+.search__filters {
+  border-bottom: 1px solid var(--side-bar-item-line-break-color);
+  padding: 0;
+  margin: 0 8px;
+}
+
+.search__filters-button {
+  color: var(--secondary-text-color);
+  padding: 0px 16px 6px;
+  margin-left: -16px;
+  display: flex;
+  align-items: center;
+}
+
+.search__filters-button > span {
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding-left: 8px;
+}
+
+.search__filters-button > svg {
+  font-size: 1.8rem;
+  vertical-align: middle;
+}
+
+.search-results__videos {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}

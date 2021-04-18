@@ -1,0 +1,25 @@
+.line-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: red;
+  z-index: 99999;
+  animation: lineLoader 4s ease-in;
+}
+
+@keyframes lineLoader {
+  0% {
+    width: 20%;
+  }
+  40% {
+    width: 40%;
+  }
+  80% {
+    width: 80%;
+  }
+  100% {
+    width: 100%;
+  }
+}
