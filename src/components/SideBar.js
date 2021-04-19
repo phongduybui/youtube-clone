@@ -1,12 +1,16 @@
 import "./SideBar.css";
 import React, { useEffect } from "react";
-import useWindowDimensions from "../hooks/useWindowDimensions";
+import { useLocation } from 'react-router-dom';
 import { setBarClick } from '../actions';
 import { connect } from "react-redux";
+import useWindowDimensions from "../hooks/useWindowDimensions";
+import checkPathName from '../helpers/checkPathName';
 import SideBarCollapse from "./SideBarCollapse";
 import SideBarExpand from "./SideBarExpand";
 
 const SideBar = ({ isBarClick, setBarClick }) => {
+  const { pathname } = useLocation();
+  console.log(pathname)
   const { width } = useWindowDimensions();
 
   useEffect(() => {
@@ -19,7 +23,6 @@ const SideBar = ({ isBarClick, setBarClick }) => {
   const barStatus = isBarClick ? 'collapse' : 'expand';
 
   function renderSideBar() { 
-   
     if(width >= 1024) {
       return (
         <>
@@ -39,9 +42,12 @@ const SideBar = ({ isBarClick, setBarClick }) => {
     }
   }
 
+  const isWatchVideoPage = checkPathName(pathname);
+
   return (
-    <aside className="side-bar">
-      {renderSideBar()}
+    <aside className={`side-bar ${isWatchVideoPage ? 'hide-side-bar' : ''}`}>
+      {isWatchVideoPage ? 
+      <SideBarExpand barStatus="collapse" isShow /> : renderSideBar()}
     </aside>
   );
 };

@@ -8,13 +8,14 @@ import { SiYoutubetv } from "react-icons/si";
 import SideBarItem from "./SideBarItem";
 import Modal from "./Modal";
 
-const SideBarExpand = ({ isBarClick, barStatus, isTablet }) => {
+const SideBarExpand = ({ isBarCollapse, barStatus, isTablet, isShow }) => {
 
-  const showExpand =  (!isBarClick && isTablet) ? 'show-side-bar-expand' : '';
+  const showExpand =  (!isBarCollapse && (isTablet || isShow)) 
+    ? 'show-side-bar-expand' : '';
 
   return (
     <div className={`side-bar__expand ${barStatus} ${showExpand}`}>
-      {(!isBarClick && isTablet) ? <Modal/> : null}
+      {(!isBarCollapse && (isTablet || isShow)) ? <Modal/> : null}
       <ul className={`side-bar__list`}>
         <SideBarItem isActive title="Trang chủ" Icon={MdHome} />
         <SideBarItem title="Khám phá" Icon={FaCompass} />
@@ -29,6 +30,6 @@ const SideBarExpand = ({ isBarClick, barStatus, isTablet }) => {
   );
 };
 
-const mapStateToProps = state => ({ isBarClick: state.isBarClick });
+const mapStateToProps = state => ({ isBarCollapse: state.isBarClick });
 
 export default connect(mapStateToProps)(SideBarExpand);

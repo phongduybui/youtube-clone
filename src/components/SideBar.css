@@ -40,18 +40,17 @@
 
 .side-bar__expand.show-side-bar-expand ~ .side-bar__collapse.collapse {
   display: none;
-} 
+}
+
+.side-bar__expand.show-side-bar-expand .side-bar__list {
+  width: var(--side-bar-width);
+  left: 0;
+}
 
 @media (max-width: 1023px) {
   .side-bar__list {
     display: block;
     width: var(--side-bar-tablet-width);
-  }
-
-
-  .side-bar__expand.show-side-bar-expand .side-bar__list {
-    width: var(--side-bar-width);
-    left: 0;
   }
 
   .break-line {
