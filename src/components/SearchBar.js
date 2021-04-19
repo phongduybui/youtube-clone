@@ -2,20 +2,25 @@ import './SearchBar.css';
 import React, { useState, useRef, useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { MdArrowBack } from 'react-icons/md';
-import { fetchVideosAndChannelsByTerm } from '../actions';
+import { fetchVideosAndChannelsByTerm, setIsFetchingData } from '../actions';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 import HeaderButton from './HeaderButton';
 import { connect } from 'react-redux';
 
 
-const SearchBar = ({ isMobile, setMobile, fetchVideosAndChannelsByTerm }) => {
+const SearchBar = ({ 
+  isMobile, 
+  setMobile, 
+  fetchVideosAndChannelsByTerm, 
+  setIsFetchingData 
+}) => {
   const [term, setTerm] = useState('');
   const { width } = useWindowDimensions();
-  const refSearchBar = useRef();
+  const refSearch = useRef();
 
   useEffect(() => {
     const onBodyClick = (e) => {
-      if(refSearchBar.current && refSearchBar.current.contains(e.target)) {
+      if(refSearch.current && refSearch.current.contains(e.target)) {
         return;
       }
       setMobile(false);
@@ -35,9 +40,19 @@ const SearchBar = ({ isMobile, setMobile, fetchVideosAndChannelsByTerm }) => {
     }
   }
 
-  const searchBarMobile = isMobile && width < 739? 'search-bar--mobile' : '';
+  const searchBarMobile = isMobile && width < 739 ? 'search-bar--mobile' : '';
+
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    if(!term) {
+      return;
+    }
+    setIsFetchingData(true);
+    fetchVideosAndChannelsByTerm(term);
+  }
+
   return (
-    <div ref={refSearchBar} className={`search-bar ${searchBarMobile}`}>
+    <form onSubmit={onFormSubmit} ref={refSearch} className={`search-bar ${searchBarMobile}`}>
       {renderBackButton()}
       <input 
         type="text"
@@ -51,10 +66,14 @@ const SearchBar = ({ isMobile, setMobile, fetchVideosAndChannelsByTerm }) => {
         className="btn--search"
         dataTitle="Tìm kiếm"
         Icon={AiOutlineSearch} 
-        onClick={() => fetchVideosAndChannelsByTerm(term)}
       />
-    </div>
+    </form>
   )
 }
 
-export default connect(null, { fetchVideosAndChannelsByTerm })(SearchBar);
+const mapDispatchToProps = {
+  setIsFetchingData,
+  fetchVideosAndChannelsByTerm,
+};
+
+export default connect(null, mapDispatchToProps)(SearchBar);
