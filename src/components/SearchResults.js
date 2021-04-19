@@ -19,6 +19,7 @@ const SearchResults = ({ videos, channels }) => {
       
       return (
         <VideoItem
+          className="video-item--w100"
           id={video.id.videoId}
           channelId={channelId}
           title={title}
@@ -27,7 +28,6 @@ const SearchResults = ({ videos, channels }) => {
           description={description}
           publishedAt={publishedAt}
           key={video.id.videoId}
-          className="video-item--w100"
         />
       );
     })
