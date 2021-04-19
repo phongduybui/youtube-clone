@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "./ListVideos.css";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
@@ -5,14 +6,13 @@ import { fetchHomeVideosAndChannels, setIsFetchingData } from "../actions";
 import convertDuration from "../helpers/convertDuration";
 import convertViewCount from "../helpers/convertViewCount";
 import VideoItem from "./VideoItem";
-import LineLoader from "./LineLoader";
+import SkeletonFake from './SkeletonFake';
 
 const ListVideos = ({
   homeVideos,
   nextPageToken,
   fetchHomeVideosAndChannels,
   setIsFetchingData,
-  isFetchingData
 }) => {
 
   useEffect(() => {
@@ -59,26 +59,16 @@ const ListVideos = ({
             />
           );
         }
+        return null;
       });
     }
   };
 
-  const renderSkeleton = () => {
-    if(isFetchingData) {
-      let videos = [];
-      for(let i = 1; i <= 8; i++) {
-        videos = [...videos, <VideoItem key={i} />];
-      }
-      return videos;
-    }
-  }
-
   return (
     <div className="list-videos">
-      <LineLoader />
       <div className="list-videos-wrapper">
         {renderHomeVideos()}
-        {renderSkeleton()}
+        <SkeletonFake />
       </div>
     </div>
   );
@@ -87,7 +77,6 @@ const ListVideos = ({
 const mapStateToProps = (state) => ({
   homeVideos: Object.values(state.homeVideos),
   nextPageToken: state.homeVideos.nextPageToken,
-  isFetchingData: state.isFetchingData,
 });
 
 const mapDispatchToProps = { fetchHomeVideosAndChannels, setIsFetchingData };
