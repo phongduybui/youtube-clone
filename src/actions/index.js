@@ -1,3 +1,5 @@
+import _ from "lodash";
+import history from '../history';
 import {
   SET_BAR_CLICK,
   FETCH_HOME_VIDEOS,
@@ -8,7 +10,6 @@ import {
   FETCH_CHANNEL_SEARCH_RESULTS,
 } from "./types";
 import youtube from "../apis/youtube";
-import _ from "lodash";
 
 export const toggleDarkMode = () => {
   return {
@@ -141,4 +142,6 @@ export const fetchVideosAndChannelsByTerm = (term) => async (dispatch, getState)
     return video.snippet.channelId
   }));
   channelIds.forEach(id => dispatch(fetchChannelSearchResults(id)));
+  dispatch(setIsFetchingData(false));
+  history.push('/search-results');
 }
