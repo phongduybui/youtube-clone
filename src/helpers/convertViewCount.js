@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import numeral from 'numeral';
 
 numeral.register('locale', 'vi', {
