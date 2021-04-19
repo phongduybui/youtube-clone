@@ -1,0 +1,32 @@
+.main {
+  margin-left: calc(var(--side-bar-width) - var(--margin-lr-container));
+  margin-top: var(--header-height);
+  margin-right: calc(var(--margin-lr-container) * -1);
+  background-color: var(--gray-background-color);
+  padding: 25px 17px;
+  overflow: hidden;
+}
+
+.main.collapse {
+  margin-left: calc(var(--side-bar-tablet-width) - var(--margin-lr-container));
+}
+
+/* Layout for watch video <=> hide sidebar and remove margin left .main */
+.side-bar.hide-side-bar ~ .main {
+  margin-left: 0px;
+}
+
+@media (max-width: 599px) {
+  .main {
+    margin-left: 0;
+    padding: 20px 0 0 0;
+    /* Full width */
+    margin-left: calc(var(--margin-lr-container) * -1);
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  .main {
+    margin-left: calc(var(--side-bar-tablet-width) - var(--margin-lr-container));
+  }
+}
