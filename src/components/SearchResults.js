@@ -21,7 +21,6 @@ const SearchResults = ({ videos, channels }) => {
         <VideoItem
           className="video-item--w100"
           id={video.id.videoId}
-          fromLocation="/search-results"
           channelId={channelId}
           title={title}
           channelTitle={channelTitle}

@@ -48,7 +48,6 @@ const ListVideos = ({
           return (
             <VideoItem
               id={video.id}
-              fromLocation="/"
               channelId={channelId}
               title={title}
               channelTitle={channelTitle}

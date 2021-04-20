@@ -18,7 +18,7 @@
 
 .break-line {
   margin: 12px 12px 12px 0;
-  border-top: 1px solid var(--side-bar-item-line-break-color);
+  border-top: 1px solid var(--line-break-color);
 }
 
 .side-bar__expand.collapse .side-bar__list {

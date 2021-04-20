@@ -9,6 +9,7 @@ import {
   FETCH_VIDEOS_BY_TERM,
   FETCH_CHANNEL_SEARCH_RESULTS,
   FETCH_VIDEO_BY_ID,
+  FETCH_COMMENTS,
 } from "./types";
 import youtube from "../apis/youtube";
 
@@ -75,7 +76,7 @@ const _fetchHomeVideos = _.memoize(async (nextPageToken, dispatch) => {
       chart: "mostPopular",
       regionCode: "VN",
       pageToken: nextPageToken,
-      maxResults: 20,
+      maxResults: 12,
     },
   });
 
@@ -115,7 +116,7 @@ export const fetchVideosByTerm = term => async dispatch => {
       part: 'snippet',
       q: term,
       type: 'video',
-      maxResults: 20,
+      maxResults: 8,
     }
   });
 
@@ -160,5 +161,17 @@ export const fetchVideoById = (id) => async (dispatch, getState) => {
 
   dispatch({ type: FETCH_VIDEO_BY_ID, payload: response.data.items });
   dispatch(fetchChannel(getState().currentVideo?.snippet.channelId));
-  dispatch(fetchVideosAndChannelsByTerm(getState().currentVideo?.snippet.title));
+  dispatch(fetchVideosAndChannelsByTerm(getState().currentVideo?.snippet.channelTitle));
+  dispatch(setIsFetchingData(false));
+}
+
+export const fetchComments = (videoId) => async dispatch => {
+  const response = await youtube.get('/commentThreads', {
+    params: {
+      part: 'snippet, id',
+      videoId
+    }
+  })
+
+  dispatch({ type: FETCH_COMMENTS, payload: response.data });
 }

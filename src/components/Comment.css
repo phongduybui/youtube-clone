@@ -1,0 +1,47 @@
+.comment {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.comment-info {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  margin-left: 12px;
+}
+
+.comment__author {
+  text-decoration: none;
+  color: var(--primary-text-color);
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-right: 6px;
+}
+
+.comment__time {
+  color: var(--secondary-text-color);
+  font-size: 1.3rem;
+}
+
+.comment__content {
+  color: var(--primary-text-color);
+  font-size: 1.3rem;
+}
+
+.comment__content > a {
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+.cmt__reaction {
+  display: flex;
+}
+
+.cmt__reaction .reaction__like {
+  padding-left: 0;
+}
+
+.cmt__reaction span {
+  font-size: 1.2rem;
+}
+

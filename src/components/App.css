@@ -18,10 +18,11 @@
   --gray-background-color: #F9F9F9;
   --active-text-color: #030303;
   --btn-search-hover: #e9e9e9;
-  --side-bar-item-line-break-color: rgba(0, 0, 0, 0.1);
+  --line-break-color: rgba(0, 0, 0, 0.1);
   --search-bar-input-background-color: #fff;
   --search-bar-input-color: #121212;
   --link-color: #065FD4;
+  --btn-color: #fff;
 }
 
 * {
@@ -62,11 +63,12 @@ body {
   --nav-active-color: #383838;
   --nav-active-hover-color: #4D4D4D;
   --active-text-color: #fff;
-  --side-bar-item-line-break-color: rgba(255, 255, 255, 0.1);
+  --line-break-color: rgba(255, 255, 255, 0.1);
   --search-bar-input-background-color: #121212;
   --search-bar-input-color: #fff;
   --border-color: #303030;
   --link-color: #3EA6FF;
+  --btn-color: #030303;
 }
 
 .react-icons {

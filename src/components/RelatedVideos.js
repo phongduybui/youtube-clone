@@ -1,18 +1,32 @@
 import React from 'react'
 import VideoItem from './VideoItem'
 
-const RelatedVideos = () => {
+const RelatedVideos = ({ relatedVideos }) => {
   return (
     <div className="related-videos">
-      <VideoItem className="video-item--w100"/>
-      <VideoItem className="video-item--w100"/>
-      <VideoItem className="video-item--w100"/>
-      <VideoItem className="video-item--w100"/>
-      <VideoItem className="video-item--w100"/>
-      <VideoItem className="video-item--w100"/>
-      <VideoItem className="video-item--w100"/>
-      <VideoItem className="video-item--w100"/>
-      <VideoItem className="video-item--w100"/>
+      {relatedVideos ?
+        relatedVideos.map(video => {
+          const { 
+            title, 
+            channelTitle,
+            thumbnails, 
+            publishedAt,
+          } = video.snippet;
+          
+          return (
+            <VideoItem
+              className="video-item--related"
+              id={video.id.videoId}
+              title={title}
+              channelTitle={channelTitle}
+              thumbnails={thumbnails}
+              publishedAt={publishedAt}
+              key={video.id.videoId}
+            />
+          )
+        })
+        : null
+      }
     </div>
   )
 }

@@ -12,7 +12,6 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 const VideoItem = ({
   className,
   id,
-  fromLocation,
   channelId,
   channel,
   viewCount,
@@ -39,7 +38,7 @@ const VideoItem = ({
     <div className={`video-item ${className}`} 
       onMouseEnter={() => setIsPreviewShown(true)}
       onMouseLeave={handleVideoMouseLeave}
-      onClick={() => history.push(`/watch/${id}`, { from: fromLocation })}
+      onClick={() => history.push(`/watch/${id}`)}
     >
       <div className="video-item__thumbnail">
         {thumbnails && title ? (
