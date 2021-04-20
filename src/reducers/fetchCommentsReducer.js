@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 export default (state = {}, action) => {
   if(action.type === FETCH_COMMENTS) {
-    return { ...state, ..._.mapKeys(action.payload.items, 'id') };
+    return { ..._.mapKeys(action.payload.items, 'id') };
   }
   return state;
 }
