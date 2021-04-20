@@ -10,7 +10,6 @@ import SideBarExpand from "./SideBarExpand";
 
 const SideBar = ({ isBarClick, setBarClick }) => {
   const { pathname } = useLocation();
-  console.log(pathname)
   const { width } = useWindowDimensions();
 
   useEffect(() => {

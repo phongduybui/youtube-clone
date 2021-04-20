@@ -48,7 +48,7 @@ const SearchBar = ({
       return;
     }
     setIsFetchingData(true);
-    fetchVideosAndChannelsByTerm(term);
+    fetchVideosAndChannelsByTerm(term, true);
   }
 
   return (

@@ -1,12 +1,11 @@
 import './App.css'
 import React from 'react';
 import history from '../history';
-import { Router, Route } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { IconContext } from 'react-icons/lib';
 import Header from './Header';
 import SideBar from './SideBar';
 import Main from './Main';
-import WatchVideo from './WatchVideo';
 
 const App = () => {
   

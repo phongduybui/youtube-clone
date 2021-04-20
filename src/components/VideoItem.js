@@ -2,15 +2,17 @@ import "./VideoItem.css";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import history from "../history";
 import { VscCircleFilled } from "react-icons/vsc";
 import { AiFillClockCircle } from "react-icons/ai";
 import { RiPlayList2Fill } from "react-icons/ri";
-import getTimeAgo from "../helpers/getTimeAgo";
+import { getTimeAgo } from "../helpers/getTimeAgo";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const VideoItem = ({
   className,
   id,
+  fromLocation,
   channelId,
   channel,
   viewCount,
@@ -25,7 +27,8 @@ const VideoItem = ({
 
   const [isIframeLoaded, setIsIframeLoaded] = useState('');
   const [isPreviewShown, setIsPreviewShown] = useState(false);
-  const darkSkeleton = isDarkMode ? { color: "#202020", highlightColor: "#444" } : null;
+  const darkSkeleton = 
+    isDarkMode ? { color: "#202020", highlightColor: "#444" } : null;
 
   const handleVideoMouseLeave = () => {
     setIsPreviewShown(false); 
@@ -36,6 +39,7 @@ const VideoItem = ({
     <div className={`video-item ${className}`} 
       onMouseEnter={() => setIsPreviewShown(true)}
       onMouseLeave={handleVideoMouseLeave}
+      onClick={() => history.push(`/watch/${id}`, { from: fromLocation })}
     >
       <div className="video-item__thumbnail">
         {thumbnails && title ? (

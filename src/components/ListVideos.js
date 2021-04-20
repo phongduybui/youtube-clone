@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchHomeVideosAndChannels, setIsFetchingData } from "../actions";
 import convertDuration from "../helpers/convertDuration";
-import convertViewCount from "../helpers/convertViewCount";
+import { viewString } from "../helpers/convertViewCount";
 import VideoItem from "./VideoItem";
 import SkeletonFake from './SkeletonFake';
 
@@ -48,13 +48,14 @@ const ListVideos = ({
           return (
             <VideoItem
               id={video.id}
+              fromLocation="/"
               channelId={channelId}
               title={title}
               channelTitle={channelTitle}
               thumbnails={thumbnails}
               publishedAt={publishedAt}
               duration={convertDuration(video.contentDetails?.duration)}
-              viewCount={convertViewCount(video.statistics?.viewCount)}
+              viewCount={viewString(video.statistics?.viewCount)}
               key={video.id}
             />
           );

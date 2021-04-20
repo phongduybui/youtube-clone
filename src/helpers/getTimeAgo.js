@@ -4,4 +4,6 @@ import 'moment/locale/vi';  // without this line it didn't work
 
 moment.locale('vi');
 
-export default time => moment(time).fromNow();
+export const getTimeAgo = time => moment(time).fromNow();
+
+export const getTime = time => moment(time).format("DD MMM, YYYY");

@@ -8,6 +8,7 @@ import {
   TOGGLE_DARK_MODE,
   FETCH_VIDEOS_BY_TERM,
   FETCH_CHANNEL_SEARCH_RESULTS,
+  FETCH_VIDEO_BY_ID,
 } from "./types";
 import youtube from "../apis/youtube";
 
@@ -111,7 +112,7 @@ const _fetchChannel = _.memoize(async (channelId, dispatch) => {
 export const fetchVideosByTerm = term => async dispatch => {
   const response = await youtube.get('/search', {
     params: {
-      part: "snippet",
+      part: 'snippet',
       q: term,
       type: 'video',
       maxResults: 20,
@@ -135,7 +136,7 @@ const _fetchChannelSearchResults = _.memoize(async (id, dispatch) => {
   dispatch({ type: FETCH_CHANNEL_SEARCH_RESULTS, payload: response.data.items})
 })
 
-export const fetchVideosAndChannelsByTerm = (term) => async (dispatch, getState) => {
+export const fetchVideosAndChannelsByTerm = (term, isSearch) => async (dispatch, getState) => {
   await dispatch(fetchVideosByTerm(term));
 
   const channelIds = _.uniq(_.map(getState().searchResults.videos, video => {
@@ -143,5 +144,21 @@ export const fetchVideosAndChannelsByTerm = (term) => async (dispatch, getState)
   }));
   channelIds.forEach(id => dispatch(fetchChannelSearchResults(id)));
   dispatch(setIsFetchingData(false));
-  history.push('/search-results');
+
+  if(isSearch) {
+    history.push('/search-results');
+  }
+}
+
+export const fetchVideoById = (id) => async (dispatch, getState) => {
+  const response = await youtube.get('/videos', {
+    params: {
+      id,
+      part: 'snippet, statistics'
+    }
+  })
+
+  dispatch({ type: FETCH_VIDEO_BY_ID, payload: response.data.items });
+  dispatch(fetchChannel(getState().currentVideo?.snippet.channelId));
+  dispatch(fetchVideosAndChannelsByTerm(getState().currentVideo?.snippet.title));
 }

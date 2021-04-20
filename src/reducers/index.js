@@ -5,6 +5,7 @@ import videoReducer from './videoReducer';
 import isFetchingDataReducer from './setIsFetchingDataReducer';
 import toggleDarkModeReducer from './toggleDarkModeReducer';
 import searchResultsReducer from './searchResultsReducer';
+import fetchVideoByIdReducer from './fetchVideoByIdReducer';
 
 export default combineReducers({
   isBarClick: setBarClickReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   isFetchingData: isFetchingDataReducer,
   isDarkMode: toggleDarkModeReducer,
   searchResults: searchResultsReducer,
+  currentVideo: fetchVideoByIdReducer,
 });
