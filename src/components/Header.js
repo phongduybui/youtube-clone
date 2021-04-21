@@ -52,7 +52,7 @@ const Header = ({ isDarkMode, toggleDarkMode, isBarClick, setBarClick }) => {
         <div className="header__user">
           <HeaderButton
             className="btn--user user__darkmode"
-            dataTitle={isDarkMode ? "Dark Mode" : "Light Mode"}
+            dataTitle={isDarkMode ? "Light Mode" : "Dark Mode"}
             Icon={isDarkMode ? BiSun : BsMoon}
             onClick={() => onDarkModeClick()}
           />
