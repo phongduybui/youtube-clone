@@ -11,7 +11,7 @@ import { MdKeyboardVoice } from 'react-icons/md';
 import { CgMenuGridO } from 'react-icons/cg';
 import { MdNotifications } from 'react-icons/md';
 import { BiSun } from 'react-icons/bi';
-import { CgDarkMode } from 'react-icons/cg';
+import { BsMoon } from 'react-icons/bs';
 import SearchBar from './SearchBar';
 import HeaderButton from './HeaderButton';
 
@@ -53,7 +53,7 @@ const Header = ({ isDarkMode, toggleDarkMode, isBarClick, setBarClick }) => {
           <HeaderButton
             className="btn--user user__darkmode"
             dataTitle={isDarkMode ? "Dark Mode" : "Light Mode"}
-            Icon={isDarkMode ? BiSun : CgDarkMode}
+            Icon={isDarkMode ? BiSun : BsMoon}
             onClick={() => onDarkModeClick()}
           />
           <HeaderButton
