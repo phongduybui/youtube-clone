@@ -1,5 +1,4 @@
 import _ from "lodash";
-import history from '../history';
 import {
   SET_BAR_CLICK,
   FETCH_HOME_VIDEOS,
@@ -10,6 +9,9 @@ import {
   FETCH_CHANNEL_SEARCH_RESULTS,
   FETCH_VIDEO_BY_ID,
   FETCH_COMMENTS,
+  CLEAR_COMMENTS,
+  GET_SEARCH_TERM,
+  CLEAR_SEARCH_RESULTS,
 } from "./types";
 import youtube from "../apis/youtube";
 
@@ -110,13 +112,14 @@ const _fetchChannel = _.memoize(async (channelId, dispatch) => {
   dispatch({ type: FETCH_CHANNEL, payload: response.data.items });
 });
 
-export const fetchVideosByTerm = term => async dispatch => {
+export const fetchVideosByTerm = (nextPageToken, term) => async dispatch => {
   const response = await youtube.get('/search', {
     params: {
       part: 'snippet',
       q: term,
       type: 'video',
-      maxResults: 8,
+      pageToken: nextPageToken,
+      maxResults: 4,
     }
   });
 
@@ -137,18 +140,18 @@ const _fetchChannelSearchResults = _.memoize(async (id, dispatch) => {
   dispatch({ type: FETCH_CHANNEL_SEARCH_RESULTS, payload: response.data.items})
 })
 
-export const fetchVideosAndChannelsByTerm = (term, isSearch) => async (dispatch, getState) => {
-  await dispatch(fetchVideosByTerm(term));
+export const fetchVideosAndChannelsByTerm = (nextPageToken, term) => async (dispatch, getState) => {
+  if(!term) {
+    return;
+  }
+  
+  await dispatch(fetchVideosByTerm(nextPageToken, term));
 
   const channelIds = _.uniq(_.map(getState().searchResults.videos, video => {
     return video.snippet.channelId
   }));
   channelIds.forEach(id => dispatch(fetchChannelSearchResults(id)));
   dispatch(setIsFetchingData(false));
-
-  if(isSearch) {
-    history.push('/search-results');
-  }
 }
 
 export const fetchVideoById = (id) => async (dispatch, getState) => {
@@ -161,17 +164,39 @@ export const fetchVideoById = (id) => async (dispatch, getState) => {
 
   dispatch({ type: FETCH_VIDEO_BY_ID, payload: response.data.items });
   dispatch(fetchChannel(getState().currentVideo?.snippet.channelId));
-  dispatch(fetchVideosAndChannelsByTerm(getState().currentVideo?.snippet.channelTitle));
+  dispatch(fetchVideosAndChannelsByTerm(null, getState().currentVideo?.snippet.channelTitle));
   dispatch(setIsFetchingData(false));
 }
 
-export const fetchComments = (videoId) => async dispatch => {
+export const fetchComments = (videoId, nextPageToken) => async dispatch => {
   const response = await youtube.get('/commentThreads', {
     params: {
       part: 'snippet, id',
-      videoId
+      videoId,
+      pageToken: nextPageToken,
+      maxResults: 5
     }
   })
 
   dispatch({ type: FETCH_COMMENTS, payload: response.data });
+  dispatch(setIsFetchingData(false));
+}
+
+export const clearComments = () => {
+  return {
+    type: CLEAR_COMMENTS
+  }
+}
+
+export const getSearchTerm = (term) => {
+  return {
+    type: GET_SEARCH_TERM,
+    payload: term
+  }
+}
+
+export const clearSearchResults = () => {
+  return {
+    type: CLEAR_SEARCH_RESULTS
+  }
 }

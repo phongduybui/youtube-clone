@@ -1,21 +1,24 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { FETCH_VIDEOS_BY_TERM, FETCH_CHANNEL_SEARCH_RESULTS  } from '../actions/types';
+import { FETCH_VIDEOS_BY_TERM, FETCH_CHANNEL_SEARCH_RESULTS, GET_SEARCH_TERM, CLEAR_SEARCH_RESULTS  } from '../actions/types';
 import _ from 'lodash';
 
-const initStateSearch = {
+const INITIAL_STATE = {
   videos: {},
-  channels: {}
+  channels: {},
+  searchTerm: '',
+  nextPageToken: ''
 };
 
-export default (state = initStateSearch, action) => {
+export default (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case FETCH_VIDEOS_BY_TERM:
       return { 
         ...state,
         videos: {
-          // Override old search term results 
-          ..._.mapKeys(action.payload.items, video => video.id.videoId)
-        }
+          ...state.videos,
+          ..._.mapKeys(action.payload.items, video => video.id.videoId),
+        },
+        nextPageToken: action.payload.nextPageToken
       };
     case FETCH_CHANNEL_SEARCH_RESULTS:
       return {
@@ -26,6 +29,13 @@ export default (state = initStateSearch, action) => {
           ..._.mapKeys(action.payload, 'id')
         }
       };
+    case GET_SEARCH_TERM: 
+      return {
+        ...state,
+        searchTerm: action.payload
+      } 
+    case CLEAR_SEARCH_RESULTS:
+      return INITIAL_STATE;
     default:
       return state;
   }
