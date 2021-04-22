@@ -183,13 +183,13 @@
   display: none;
 }
 
-.iframe__video {
+/* .iframe__video {
   opacity: 0;
 }
 
 .iframe__video.is-loaded {
   opacity: 1;
-}
+} */
 
 /* Video item full width modifier */
 .video-item--w100 .video-item__thumbnail-preview {

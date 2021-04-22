@@ -8,6 +8,7 @@ import { AiFillClockCircle } from "react-icons/ai";
 import { RiPlayList2Fill } from "react-icons/ri";
 import { getTimeAgo } from "../helpers/getTimeAgo";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import ReactPlayer from 'react-player/youtube';
 
 const VideoItem = ({
   className,
@@ -24,14 +25,14 @@ const VideoItem = ({
   isDarkMode,
 }) => {
 
-  const [isIframeLoaded, setIsIframeLoaded] = useState('');
+  const [isLoaded, setIsLoaded] = useState('');
   const [isPreviewShown, setIsPreviewShown] = useState(false);
   const darkSkeleton = 
     isDarkMode ? { color: "#202020", highlightColor: "#444" } : null;
 
   const handleVideoMouseLeave = () => {
     setIsPreviewShown(false); 
-    setIsIframeLoaded('');
+    setIsLoaded('');
   }
 
   return (
@@ -47,23 +48,21 @@ const VideoItem = ({
               {isPreviewShown 
               ? 
               <div className="iframe-container">
-                <div className={`ui inverted large loader ${isIframeLoaded ? '': 'active'}`}>
+                <div className={`ui inverted large loader ${isLoaded ? '': 'active'}`}>
                 </div>
                 <img
-                  className={`video-item__thumbnail-img iframe__loader ${isIframeLoaded}`}
-                  src={thumbnails.high?.url || thumbnails.medium?.url || thumbnails.default?.url}
+                  className={`video-item__thumbnail-img iframe__loader ${isLoaded}`}
+                  src={thumbnails.high?.url || thumbnails.medium?.url}
                   alt={title}
                 />
-                <iframe
+                <ReactPlayer
                   height="100%"
                   width="100%"
-                  onLoad={() => setTimeout(() => setIsIframeLoaded('is-loaded'), 1500)}
-                  className={`video-item__thumbnail-img iframe__video ${isIframeLoaded}`}
-                  src={`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&modestbranding=1&controls=0`}
-                  title=" "
-                  frameBorder="0" 
-                  allow="autoplay"
-                ></iframe>
+                  onReady={()=>setTimeout(() => setIsLoaded('is-loaded'), 1500)}
+                  url={`https://www.youtube.com/watch?v=${id}`}
+                  playing
+                  muted
+                />
               </div>
               : <img
                 className="video-item__thumbnail-img"
