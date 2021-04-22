@@ -6,7 +6,7 @@ const PostComment = () => {
 
   return (
     <div className="post-comment">
-      <a href="#" target="_blank">
+      <a href="/" target="_blank">
         <img className="author__thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyz-77X11MoGE22xVjjPhbpW6lPj6I0SkcTQ&usqp=CAU" alt=""/>
       </a>
       <form className="post-comment__form">

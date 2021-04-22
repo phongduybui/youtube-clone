@@ -2,7 +2,7 @@
 import './WatchVideo.css';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setBarClick, fetchVideoById, setIsFetchingData } from '../actions';
+import { setBarClick, fetchVideoById, setIsFetchingData } from '../../actions';
 import RelatedVideos from './RelatedVideos';
 import VideoDetails from './VideoDetails';
 
