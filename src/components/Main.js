@@ -6,7 +6,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions';
 import ListVideos from './ListVideos';
 import SearchResults from './SearchResults';
 import LineLoader from './LineLoader';
-import WatchVideo from './WatchVideo';
+import WatchVideo from './WatchVideo/WatchVideo';
 
 const Main = ({ isBarCollapse }) => {
   const { width } = useWindowDimensions();
