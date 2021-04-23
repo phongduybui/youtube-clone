@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+import { fetchVideosAndChannelsByTerm as fetchMore } from '../../actions';
 import VideoItem from "../VideoItem";
 import VideoItemSkeleton from "../VideoItemSkeleton";
 
-const RelatedVideos = ({ relatedVideos, isFetchingData }) => {
+const RelatedVideos = (props) => {
   return (
     <div className="related-videos">
-      {relatedVideos.map((video) => {
+      {props.relatedVideos.map((video) => {
         const { title, channelTitle, thumbnails, publishedAt } = video.snippet;
 
         return (
@@ -21,13 +22,22 @@ const RelatedVideos = ({ relatedVideos, isFetchingData }) => {
           />
         );
       })}
-      {isFetchingData && (
+      {props.isFetchingData && (
         <VideoItemSkeleton count={8} className="video-item--related" />
       )}
+      <button 
+        className="btn-toggle menu__btn btn-show-more"
+        onClick={() => props.fetchMore(props.nextToken, props.videoOfChannel)}
+      >Hiển thị thêm
+      </button>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({ isFetchingData: state.isFetchingData });
+const mapStateToProps = (state) => ({ 
+  isFetchingData: state.isFetchingData,
+  videoOfChannel: state.currentVideo?.snippet.channelTitle,
+  nextToken: state.searchResults.nextPageToken,
+});
 
-export default connect(mapStateToProps)(RelatedVideos);
+export default connect(mapStateToProps, { fetchMore })(RelatedVideos);

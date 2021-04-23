@@ -27,7 +27,7 @@
 }
 
 .btn-show-more {
-  margin: 0 auto 30px;
+  margin: 20px auto 30px;
   padding: 8px 12px;
   background-color: var(--background-btn-color);
   color: var(--secondary-text-color);

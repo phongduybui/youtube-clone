@@ -1,16 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "./ListVideos.css";
 import React, { useEffect } from "react";
+import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import { connect } from "react-redux";
 import { fetchHomeVideosAndChannels, setIsFetchingData } from "../actions";
 import convertDuration from "../helpers/convertDuration";
 import { viewString } from "../helpers/convertViewCount";
 import VideoItem from "./VideoItem";
-import SkeletonFake from './SkeletonFake';
+import VideoItemSkeleton from './VideoItemSkeleton';
 
 const ListVideos = ({
   homeVideos,
   nextPageToken,
+  isFetchingData,
   fetchHomeVideosAndChannels,
   setIsFetchingData,
 }) => {
@@ -20,55 +22,48 @@ const ListVideos = ({
     fetchHomeVideosAndChannels();
   }, []); 
 
-  useEffect(() => {
-    const onScroll = () => {
-      //At the bottom of the page: show loading spinner and make fetch request to api
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        setIsFetchingData(true);
-        fetchHomeVideosAndChannels(nextPageToken);     
-      }
-    }
-    window.addEventListener('scroll', onScroll);
+  const [isFetching, setFetching] = useInfiniteScroll(fetchMoreVideos);
 
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [nextPageToken]);
+  function fetchMoreVideos() {
+    setIsFetchingData(isFetching); //true
+    fetchHomeVideosAndChannels(nextPageToken);
+    setFetching(isFetchingData);
+  }
 
   const renderHomeVideos = () => {
-    if (homeVideos) {
-      return homeVideos.map((video) => {
-        if(typeof video === 'object') {
-          const { 
-            title, 
-            channelTitle,
-            channelId,
-            thumbnails, 
-            publishedAt 
-          } = video.snippet;
+    return homeVideos.map((video) => {
+      if(typeof video === 'object') {
+        const { 
+          title, 
+          channelTitle,
+          channelId,
+          thumbnails, 
+          publishedAt 
+        } = video.snippet;
 
-          return (
-            <VideoItem
-              id={video.id}
-              channelId={channelId}
-              title={title}
-              channelTitle={channelTitle}
-              thumbnails={thumbnails}
-              publishedAt={publishedAt}
-              duration={convertDuration(video.contentDetails?.duration)}
-              viewCount={viewString(video.statistics?.viewCount)}
-              key={video.id}
-            />
-          );
-        }
-        return null;
-      });
-    }
+        return (
+          <VideoItem
+            id={video.id}
+            channelId={channelId}
+            title={title}
+            channelTitle={channelTitle}
+            thumbnails={thumbnails}
+            publishedAt={publishedAt}
+            duration={convertDuration(video.contentDetails?.duration)}
+            viewCount={viewString(video.statistics?.viewCount)}
+            key={video.id}
+          />
+        );
+      }
+      return null;
+    });
   };
 
   return (
     <div className="list-videos">
       <div className="list-videos-wrapper">
         {renderHomeVideos()}
-        <SkeletonFake />
+        {isFetchingData && <VideoItemSkeleton count={8} />}
       </div>
     </div>
   );
@@ -77,8 +72,12 @@ const ListVideos = ({
 const mapStateToProps = (state) => ({
   homeVideos: Object.values(state.homeVideos),
   nextPageToken: state.homeVideos.nextPageToken,
+  isFetchingData: state.isFetchingData,
 });
 
-const mapDispatchToProps = { fetchHomeVideosAndChannels, setIsFetchingData };
+const mapDispatchToProps = { 
+  fetchHomeVideosAndChannels, 
+  setIsFetchingData 
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListVideos);

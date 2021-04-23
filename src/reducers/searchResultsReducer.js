@@ -1,5 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { FETCH_VIDEOS_BY_TERM, FETCH_CHANNEL_SEARCH_RESULTS, GET_SEARCH_TERM, CLEAR_SEARCH_RESULTS  } from '../actions/types';
+import {
+  FETCH_VIDEOS_BY_TERM,
+  FETCH_CHANNEL_SEARCH_RESULTS,
+  UPDATE_SEARCH_TERM,
+  CLEAR_SEARCH_RESULTS,
+} from '../actions/types';
 import _ from 'lodash';
 
 const INITIAL_STATE = {
@@ -24,16 +29,15 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         channels: {
-          // Add new channel to list, fetch 1 channel/per time, not override old search results
           ...state.channels,
           ..._.mapKeys(action.payload, 'id')
         }
       };
-    case GET_SEARCH_TERM: 
+    case UPDATE_SEARCH_TERM: 
       return {
-        ...state,
+        ...INITIAL_STATE,
         searchTerm: action.payload
-      } 
+      }
     case CLEAR_SEARCH_RESULTS:
       return INITIAL_STATE;
     default:

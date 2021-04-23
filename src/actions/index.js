@@ -10,7 +10,7 @@ import {
   FETCH_VIDEO_BY_ID,
   FETCH_COMMENTS,
   CLEAR_COMMENTS,
-  GET_SEARCH_TERM,
+  UPDATE_SEARCH_TERM,
   CLEAR_SEARCH_RESULTS,
 } from "./types";
 import youtube from "../apis/youtube";
@@ -119,7 +119,7 @@ export const fetchVideosByTerm = (nextPageToken, term) => async dispatch => {
       q: term,
       type: 'video',
       pageToken: nextPageToken,
-      maxResults: 4,
+      maxResults: 5,
     }
   });
 
@@ -164,6 +164,7 @@ export const fetchVideoById = (id) => async (dispatch, getState) => {
 
   dispatch({ type: FETCH_VIDEO_BY_ID, payload: response.data.items });
   dispatch(fetchChannel(getState().currentVideo?.snippet.channelId));
+  dispatch(clearSearchResults());
   dispatch(fetchVideosAndChannelsByTerm(null, getState().currentVideo?.snippet.channelTitle));
   dispatch(setIsFetchingData(false));
 }
@@ -188,9 +189,9 @@ export const clearComments = () => {
   }
 }
 
-export const getSearchTerm = (term) => {
+export const updateSearchTerm = (term) => {
   return {
-    type: GET_SEARCH_TERM,
+    type: UPDATE_SEARCH_TERM,
     payload: term
   }
 }
