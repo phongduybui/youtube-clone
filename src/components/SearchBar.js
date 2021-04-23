@@ -1,20 +1,28 @@
 import './SearchBar.css';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { MdArrowBack } from 'react-icons/md';
-import { fetchVideosAndChannelsByTerm, setIsFetchingData } from '../actions';
+import { 
+  fetchVideosAndChannelsByTerm, 
+  setIsFetchingData, 
+  updateSearchTerm,
+} from '../actions';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 import HeaderButton from './HeaderButton';
 import { connect } from 'react-redux';
+import history from '../history';
 
 
 const SearchBar = ({ 
   isMobile, 
   setMobile, 
   fetchVideosAndChannelsByTerm, 
-  setIsFetchingData 
+  setIsFetchingData,
+  updateSearchTerm,
+  searchTerm
 }) => {
-  const [term, setTerm] = useState('');
+
   const { width } = useWindowDimensions();
   const refSearch = useRef();
 
@@ -42,23 +50,21 @@ const SearchBar = ({
 
   const searchBarMobile = isMobile && width < 739 ? 'search-bar--mobile' : '';
 
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    if(!term) {
-      return;
-    }
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    updateSearchTerm(data.search);
     setIsFetchingData(true);
-    fetchVideosAndChannelsByTerm(term, true);
+    fetchVideosAndChannelsByTerm('', data.search)
+    history.push('/search-results');
   }
 
   return (
-    <form onSubmit={onFormSubmit} ref={refSearch} className={`search-bar ${searchBarMobile}`}>
+    <form onSubmit={handleSubmit(onSubmit)} ref={refSearch} className={`search-bar ${searchBarMobile}`}>
       {renderBackButton()}
-      <input 
-        type="text"
-        name="search"
-        value={term}
-        onChange={(e) => setTerm(e.target.value)}
+      <input
+        {...register('search')}
+        defaultValue={searchTerm}
         className="search-bar__input"
         placeholder="Tìm kiếm"
       />
@@ -71,9 +77,12 @@ const SearchBar = ({
   )
 }
 
+const mapStateToProps = state => ({ searchTerm: state.searchResults.searchTerm });
+
 const mapDispatchToProps = {
   setIsFetchingData,
   fetchVideosAndChannelsByTerm,
+  updateSearchTerm,
 };
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
