@@ -2,7 +2,7 @@
 import './WatchVideo.css';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setBarClick, fetchVideoById, setIsFetchingData } from '../../actions';
+import { setBarClick, fetchVideoById, setIsFetchingData, clearComments } from '../../actions';
 import RelatedVideos from './RelatedVideos';
 import VideoDetails from './VideoDetails';
 
@@ -10,6 +10,7 @@ const WatchVideo = (props) => {
 
   useEffect(() => {
     props.setBarClick(true);
+    props.clearComments();
     props.setIsFetchingData(true);
     props.fetchVideoById(props.match.params.id)
   }, [props.match.params.id])
@@ -32,6 +33,6 @@ const mapStateToProps = (state) => ({
   relatedVideos: Object.values(state.searchResults.videos)
 });
 
-const mapDispatchToProps = { setBarClick, fetchVideoById, setIsFetchingData };
+const mapDispatchToProps = { setBarClick, fetchVideoById, setIsFetchingData, clearComments };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchVideo)

@@ -2,7 +2,7 @@ import "./CommentList.css";
 import React, { useEffect } from "react";
 import { setIsFetchingData } from "../../actions";
 import { connect } from "react-redux";
-import { fetchComments, clearComments } from "../../actions";
+import { fetchComments, fetchMyComment, clearComments } from "../../actions";
 import { countComment } from "../../helpers/convertViewCount";
 import { getTimeAgo } from "../../helpers/getTimeAgo";
 import PostComment from "./PostComment";
@@ -13,7 +13,9 @@ const CommentList = ({
   videoId,
   commentCount,
   comments,
+  uid,
   nextPageComment,
+  fetchMyComment,
   fetchComments,
   clearComments,
   setIsFetchingData,
@@ -22,10 +24,13 @@ const CommentList = ({
     if (videoId) {
       setIsFetchingData(true);
       clearComments();
+      if(uid) {
+        fetchMyComment(uid, videoId);
+      }
       fetchComments(videoId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [videoId]);
+  }, [videoId, uid]);
 
   function renderComments() {
     return comments.map((comment) => {
@@ -79,12 +84,14 @@ const CommentList = ({
 const mapStateToProps = (state) => ({
   comments: Object.values(state.comments),
   nextPageComment: state.comments.nextPageToken,
+  uid: state.user?.uid,
 });
 
 const mapDispatchToProps = {
   fetchComments,
   setIsFetchingData,
   clearComments,
+  fetchMyComment
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentList);

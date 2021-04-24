@@ -101,6 +101,17 @@
   background-color: var(--link-color);
 }
 
+.post-comment__btn.hide {
+  visibility: hidden;
+}
+
+.post-comment__input:focus ~ .post-comment__btn {
+  visibility: visible;
+}
+
+.post-comment__btn:hover .menu__btn {
+  visibility: visible;
+}
 
 
 
