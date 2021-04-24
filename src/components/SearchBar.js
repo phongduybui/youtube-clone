@@ -10,6 +10,7 @@ import {
 } from '../actions';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 import HeaderButton from './HeaderButton';
+import Modal from './Modal';
 import { connect } from 'react-redux';
 import history from '../history';
 
@@ -38,21 +39,18 @@ const SearchBar = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const renderBackButton = () => {
-    if(isMobile && width < 739) {
-      return (
-        <div className="search-bar__back-btn" onClick={() => setMobile(false)}>
-          <MdArrowBack />
-        </div>
-      )
-    }
-  }
+  // const renderBackButton = () => {
+  //   if(isMobile && width < 739) {
+  //     return 
+  //   }
+  // }
 
   const searchBarMobile = isMobile && width < 739 ? 'search-bar--mobile' : '';
 
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
+    setMobile(false);
     updateSearchTerm(data.search);
     setIsFetchingData(true);
     fetchVideosAndChannelsByTerm('', data.search)
@@ -60,10 +58,22 @@ const SearchBar = ({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} ref={refSearch} className={`search-bar ${searchBarMobile}`}>
-      {renderBackButton()}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      ref={refSearch}
+      className={`search-bar ${searchBarMobile}`}
+    >
+      {isMobile && width < 739 ? (
+
+        <>
+          <Modal />
+          <div className="search-bar__back-btn" onClick={() => setMobile(false)}>
+            <MdArrowBack />
+          </div>
+        </>
+      ) : null}
       <input
-        {...register('search')}
+        {...register("search")}
         defaultValue={searchTerm}
         className="search-bar__input"
         placeholder="Tìm kiếm"
@@ -71,10 +81,10 @@ const SearchBar = ({
       <HeaderButton
         className="btn--search"
         dataTitle="Tìm kiếm"
-        Icon={AiOutlineSearch} 
+        Icon={AiOutlineSearch}
       />
     </form>
-  )
+  );
 }
 
 const mapStateToProps = state => ({ searchTerm: state.searchResults.searchTerm });
