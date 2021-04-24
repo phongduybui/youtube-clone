@@ -67,11 +67,18 @@
     width: 100%;
     display: flex;
     justify-content: space-around;
+    padding-top: 0;
     padding-bottom: 0;
   }
 
   .side-bar .side-bar__item .side-bar__link {
-    padding: 5px 0 0 0;
+    width: 60px;
+    padding: 6px 2px 0;
+    white-space: nowrap;
+  }
+
+  .side-bar .side-bar__item .side-bar__link:hover {
+    background-color: transparent;
   }
 
   .side-bar .side-bar__item .side-bar__link > svg {
