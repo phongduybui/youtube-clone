@@ -7,6 +7,7 @@ import toggleDarkModeReducer from './toggleDarkModeReducer';
 import searchResultsReducer from './searchResultsReducer';
 import fetchVideoByIdReducer from './fetchVideoByIdReducer';
 import fetchCommentsReducer from './fetchCommentsReducer';
+import authReducer from './authReducer';
 
 export default combineReducers({
   isBarClick: setBarClickReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   searchResults: searchResultsReducer,
   currentVideo: fetchVideoByIdReducer,
   comments: fetchCommentsReducer,
+  user: authReducer,
 });

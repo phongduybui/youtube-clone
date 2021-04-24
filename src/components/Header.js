@@ -8,12 +8,11 @@ import { MdDehaze } from 'react-icons/md';
 import { ImYoutube2 } from 'react-icons/im';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { MdKeyboardVoice } from 'react-icons/md';
-import { CgMenuGridO } from 'react-icons/cg';
-import { MdNotifications } from 'react-icons/md';
 import { BiSun } from 'react-icons/bi';
 import { BsMoon } from 'react-icons/bs';
 import SearchBar from './SearchBar';
 import HeaderButton from './HeaderButton';
+import GoogleAuth from './Auth/GoogleAuth';
 
 
 const Header = ({ isDarkMode, toggleDarkMode, isBarClick, setBarClick }) => {
@@ -56,19 +55,7 @@ const Header = ({ isDarkMode, toggleDarkMode, isBarClick, setBarClick }) => {
             Icon={isDarkMode ? BiSun : BsMoon}
             onClick={() => onDarkModeClick()}
           />
-          <HeaderButton
-            className="btn--user user__app"
-            dataTitle="Các ứng dụng"
-            Icon={CgMenuGridO}
-          />
-          <HeaderButton
-            className="btn--user user__notify"
-            dataTitle="Thông báo"
-            Icon={MdNotifications}
-          />
-          <div className="user">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyz-77X11MoGE22xVjjPhbpW6lPj6I0SkcTQ&usqp=CAU" alt="" className="user__avatar"/>
-          </div>
+          <GoogleAuth />
         </div>
     </header>
   )

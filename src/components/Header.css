@@ -75,20 +75,6 @@
   align-items: center;
 }
 
-.user {
-  display: flex;
-  text-align: center;
-}
-
-.user__avatar {
-  width: 26px;
-  height: 26px;
-  margin: 10px 0 10px 10px;
-  cursor: pointer;
-  border-radius: 50%;
-  object-fit: contain;
-}
-
 
 
 

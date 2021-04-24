@@ -12,8 +12,12 @@ import {
   CLEAR_COMMENTS,
   UPDATE_SEARCH_TERM,
   CLEAR_SEARCH_RESULTS,
+  SIGN_IN,
+  SIGN_OUT,
+  FETCH_MY_COMMENT,
 } from "./types";
 import youtube from "../apis/youtube";
+import { getComment } from '../firebase/firestore';
 
 export const toggleDarkMode = () => {
   return {
@@ -200,4 +204,23 @@ export const clearSearchResults = () => {
   return {
     type: CLEAR_SEARCH_RESULTS
   }
+}
+
+export const signInAction = (userData) => {
+  return {
+    type: SIGN_IN,
+    payload: userData
+  }
+}
+
+export const signOutAction = () => {
+  return {
+    type: SIGN_OUT
+  }
+}
+
+export const fetchMyComment = (uid, videoId) => async (dispatch) => {
+  const comments = await getComment(uid, videoId);
+
+  dispatch({ type: FETCH_MY_COMMENT, payload: comments})
 }
