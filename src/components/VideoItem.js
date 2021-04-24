@@ -36,7 +36,7 @@ const VideoItem = ({
   }
 
   return (
-    <div className={`video-item ${className}`} 
+    <div className={`video-item ${className ? className : ''}`} 
       onMouseEnter={() => setIsPreviewShown(true)}
       onMouseLeave={handleVideoMouseLeave}
       onClick={() => history.push(`/watch/${id}`)}
