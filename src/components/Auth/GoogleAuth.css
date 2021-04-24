@@ -15,7 +15,7 @@
   border: 1px solid var(--link-color);
   border-radius: 4px;
   color: var(--link-color);
-  padding: 6px 10px;
+  padding: 4px 8px;
   white-space: nowrap;
 }
 
@@ -82,3 +82,9 @@
   padding: 10px 12px;
 }
 
+@media (max-width: 599px) {
+  .menu__btn.btn-google {
+    padding: 4px 6px;
+    font-size: 1.2rem;
+  }
+}
