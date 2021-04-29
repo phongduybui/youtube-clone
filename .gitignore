@@ -26,6 +26,9 @@ yarn-error.log*
 
 # Firebase Hosting
 /.firebase
+/.github
+firestore.indexes.json
+firestore.rules
 .vercel
 .firebaserc
 firebase.json

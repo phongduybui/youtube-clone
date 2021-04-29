@@ -29,7 +29,7 @@
 .side-bar__link.active .side-bar__title {
   color: var(--active-text-color);
   font-weight: 500;
-  line-height: 18px;
+  /* line-height: 18px; */
 }
 
 .side-bar__title {
@@ -43,7 +43,7 @@
 }
 
 .side-bar__collapse .side-bar__link.active {
-  background-color: unset;
+  background-color: transparent;
 }
 
 .side-bar__collapse .side-bar__link .side-bar__title{

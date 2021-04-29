@@ -16,6 +16,7 @@
   border-radius: 4px;
   color: var(--link-color);
   padding: 4px 8px;
+  margin-right: 0px;
   white-space: nowrap;
 }
 
