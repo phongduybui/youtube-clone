@@ -13,7 +13,8 @@
 
 /* Layout for watch video <=> hide sidebar and remove margin left .main */
 .side-bar.hide-side-bar ~ .main {
-  margin-left: 0px;
+  padding-left: var(--margin-lr-container);
+  margin-left: calc(-1 * var(--margin-lr-container));
 }
 
 @media (max-width: 599px) {
