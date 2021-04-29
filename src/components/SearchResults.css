@@ -29,3 +29,9 @@
   flex-wrap: wrap;
   margin-top: 16px;
 }
+
+@media (max-width: 599px) {
+  .search__filters-button {
+    margin: 0px;
+  }
+}
