@@ -47,7 +47,7 @@ Using the API from [Youtube Data API v3](https://developers.google.com/youtube/v
 - Watch video
 - Post comment
 - Responsive website on all devices
-- Infinitive loading, skeleton,...
+- Infinite scroll loading, skeleton,...
 ## Feedback
 
 If you have any feedback, please reach out to me at buiduyphong921@gmail.com
