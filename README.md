@@ -4,7 +4,8 @@
 - The project does the youtube clone using **Reactjs**, and **pure CSS**.  
 - Using [Youtube Data API v3](https://developers.google.com/youtube/v3/docs).
 - Using Firebase **Firestore** to store comments locally, and **Firebase Authentication** to log in through Google.
-- Responsive website on all devices.
+- Fully responsive.
+
 ## Demo
 
 https://youtb-p74.web.app/
